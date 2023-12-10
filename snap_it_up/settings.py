@@ -53,6 +53,9 @@ INSTALLED_APPS = [
 
     # APPS
     'profiles',
+    'offers',
+    'adverts',
+    'questions',
 ]
 
 MIDDLEWARE = [
