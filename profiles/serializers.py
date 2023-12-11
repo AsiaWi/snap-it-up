@@ -6,6 +6,4 @@ class ProfileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Profile
-        fields = [
-            'id', 'profile_owner', 'location','created_at', 'profile_image'
-        ]
+        fields = '__all__'
