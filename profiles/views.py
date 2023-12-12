@@ -1,20 +1,15 @@
-from django.shortcuts import render
 from .models import Profile
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from .serializers import ProfileSerializer
-from rest_framework.generics import RetrieveUpdateAPIView
-from django.http import Http404
-from rest_framework import permissions
+from snap_it_up.permissions import IsOwnerOrReadOnly
 
-class IsOwnerOrReadOnly(permissions.BasePermission):
-    '''
-    Checks if user is a profile owner if not allows access to read-only
-    '''
-    def has_object_permissions(self, request, view, obj):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        return obj.profile_owner == request.user
+from rest_framework.views import APIView
+from rest_framework.generics import RetrieveUpdateAPIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.http import Http404
+
+
+
 
 
 class ProfileList(APIView):
@@ -23,19 +18,36 @@ class ProfileList(APIView):
     '''
     def get(self, request):
         profiles = Profile.objects.all()
-        serializer = ProfileSerializer(profiles, many=True)
+        serializer = ProfileSerializer(profiles, many=True,  context={'request': request})
         return Response(serializer.data)
 
 
 class ProfileDetails(RetrieveUpdateAPIView):
+    '''
+    Retrieve a profile object using it's pk and allow updates to the profile
+    IsOwnerOrRead only method used to allow updates for profile owners only
+    '''
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
     def get_object(self):
+        pk = self.kwargs.get('pk')
         try:
-            obj = self.get_queryset().get(pk=self.kwargs['pk'])
-            self.check_object_permissions(self.request, obj)
-            return obj
+            profile = Profile.objects.get(pk=pk)
+            self.check_object_permissions(self.request, profile)
+            return profile
         except Profile.DoesNotExist:
-            raise Http404("Profile does not exist")
+            raise Http404
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data, status=status.HTTP_200_OK)
