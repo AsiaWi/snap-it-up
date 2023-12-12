@@ -1,15 +1,11 @@
 from .models import Profile
 from .serializers import ProfileSerializer
 from snap_it_up.permissions import IsOwnerOrReadOnly
-
 from rest_framework.views import APIView
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
-
-
-
 
 
 class ProfileList(APIView):
