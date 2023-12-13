@@ -37,7 +37,7 @@ SECRET_KEY = 'django-insecure-u7i2z1%=2%xdr9l!89exvebeutc4-tlq@)@3@s6_=24&u95k-^
 DEBUG = True
 
 ALLOWED_HOSTS = ['8000-asiawi-snapitupbackend-k97fkgtbvqj.ws-eu106.gitpod.io']
-
+CSRF_TRUSTED_ORIGINS = ["https://8000-asiawi-snapitupbackend-k97fkgtbvqj.ws-eu106.gitpod.io"]
 
 # Application definition
 

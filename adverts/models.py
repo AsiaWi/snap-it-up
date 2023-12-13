@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from djmoney.models.fields import MoneyField
-from hitcount.models import HitCountMixin, HitCount
+from hitcount.models import HitCountMixin
 
 
 PAYMENT_OPTIONS = (
@@ -20,7 +20,7 @@ SHIPPMENT_OPTIONS = (
 
 class Advert(models.Model, HitCountMixin):
     advert_owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    advert_title = models.CharField(max_length=50, blank=True )
+    advert_title = models.CharField(max_length=50, blank=True)
     tags = TaggableManager(blank=True)
     image = models.ImageField(upload_to='images/', blank=False)
     price = MoneyField(max_digits=14, decimal_places=2, default_currency='GBP')
@@ -31,12 +31,7 @@ class Advert(models.Model, HitCountMixin):
                                default='either')
     shippment_options = models.CharField(max_length=50, choices=SHIPPMENT_OPTIONS,
                                default='either')
-    hit_count_generic = models.OneToOneField(HitCount,on_delete=models.CASCADE, related_query_name='hit_count_generic_relation')
-
-    def clean(self):
-        if not self.advert_title and not self.tags:
-            raise ValidationError('At least one of the fields: advert title or tags must be provided')
-
+    
     class Meta:
         ordering = ['-created_at']
 

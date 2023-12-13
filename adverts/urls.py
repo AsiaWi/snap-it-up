@@ -1,6 +1,6 @@
-# from django.urls import path
-# from adverts import views
+from django.urls import path
+from adverts import views
 
-# urlpatterns = [
-#     path('adverts/', views.AdvertsList.as_view()),
-# ]
+urlpatterns = [
+    path('adverts/', views.AdvertsList.as_view()),
+]

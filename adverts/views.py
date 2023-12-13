@@ -1,15 +1,17 @@
-# from .serializers import AdvertSerializer
-# from .models import Advert
-# from django.shortcuts import render
-# from rest_framework.generics import ListAPIView
-# from rest_framework.response import Response
-# from rest_framework import status
+from .serializers import AdvertSerializer
+from .models import Advert
+from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework import status, permissions, generics
 
 
-# class AdvertsList(ListAPIView):
-#     '''
-#     API View to get and list all adverts in descending order
-#     '''
-#     queryset = Advert.objects.all()
-#     # serializer_class = AdvertSerializer
-
+class AdvertsList(generics.ListCreateAPIView):
+    '''
+    AdvertListCreate View provides GET method to provide a list and POST method.
+    '''
+    serializer_class = AdvertSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    queryset = Advert.objects.all()
+    
+    def perform_create(self, serializer):
+        serializer.save(advert_owner=self.request.user)
