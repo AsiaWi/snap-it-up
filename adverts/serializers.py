@@ -10,17 +10,18 @@ class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
     profile_owner is read only, is_owner returns true or false -
     if the requesting user is/is not a profile owner
     '''
-    advert_owner = serializers.ReadOnlyField(source='advert_owner.username')
-    is_advert_owner = serializers.SerializerMethodField()
+    owner = serializers.ReadOnlyField(source='owner.username')
+    is_owner = serializers.SerializerMethodField()
     tags = TagListSerializerField()
-    profile_id = serializers.ReadOnlyField(source='advert_owner.profile.id')
-    profile_image = serializers.ReadOnlyField(source='advert_owner.profile.image.url')
+    profile_id = serializers.ReadOnlyField(source='owner.profile.id')
+    profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     page_views = serializers.SerializerMethodField()
     
-    def get_is_advert_owner(self, obj):
+    
+    def get_is_owner(self, obj):
         request = self.context['request']
-        return request.user == obj.advert_owner
-
+        return request.user == obj.owner
+    
     def validate(self, data):
         advert_title = data.get('advert_title')
         tags = data.get('tags')

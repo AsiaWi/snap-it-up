@@ -19,7 +19,7 @@ SHIPPMENT_OPTIONS = (
 
 
 class Advert(models.Model, HitCountMixin):
-    advert_owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     advert_title = models.CharField(max_length=50, blank=True)
     tags = TaggableManager(blank=True)
     image = models.ImageField(upload_to='images/', blank=False)
