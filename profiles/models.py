@@ -5,7 +5,6 @@ from django.db.models.signals import post_save
 class Profile(models.Model):
     '''
     Profile model to create a profile,
-    get how long the user was registered with the service,
     create profile upon registration
     '''
     owner = models.OneToOneField(User, on_delete=models.CASCADE)

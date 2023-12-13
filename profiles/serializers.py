@@ -5,7 +5,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     '''
     Profile model Serializer, all fields serialized
     owner is read only, is_owner returns true or false -
-    if the requesting user is/is not a profile owner
+    to check if the requesting user is/is not a profile owner
     '''
     owner = serializers.ReadOnlyField(source="owner.username")
     is_owner = serializers.SerializerMethodField()

@@ -7,8 +7,10 @@ from taggit.serializers import (TagListSerializerField,
 class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
     '''
     Advert model Serializer, all fields serialized
-    profile_owner is read only, is_owner returns true or false -
-    if the requesting user is/is not a profile owner
+    owner is read only, is_owner returns true or false -
+    to check if the requesting user is/is not object owner.
+    Validate function checks if one of the fields(advert title or tags)are not blank.
+    Get page views function- increments page views for each object with the help of hitcount
     '''
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
@@ -16,7 +18,6 @@ class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     page_views = serializers.SerializerMethodField()
-    
     
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -34,6 +35,7 @@ class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
             return obj.hit_count.hits
         except:
             pass
+
     # this function fully copied from CI walkthrough
     def validate_image(self, value):
         if value.size > 2 * 1024 * 1024:
@@ -47,8 +49,6 @@ class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
                 'Image width larger than 4096px!'
             )
         return value
-
-  
 
     class Meta:
         model = Advert
