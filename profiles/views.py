@@ -14,36 +14,19 @@ class ProfileList(APIView):
     '''
     def get(self, request):
         profiles = Profile.objects.all()
-        serializer = ProfileSerializer(profiles, many=True,  context={'request': request})
+        serializer = ProfileSerializer(profiles, many=True)
         return Response(serializer.data)
 
 
 class ProfileDetails(RetrieveUpdateAPIView):
-    '''
-    Retrieve a profile object using it's pk and allow updates to the profile
-    IsOwnerOrRead only method used to allow updates for profile owners only
-    '''
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
     def get_object(self):
-        pk = self.kwargs.get('pk')
         try:
-            profile = Profile.objects.get(pk=pk)
-            self.check_object_permissions(self.request, profile)
-            return profile
+            obj = self.get_queryset().get(pk=self.kwargs['pk'])
+            self.check_object_permissions(self.request, obj)
+            return obj
         except Profile.DoesNotExist:
-            raise Http404
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
-
-    def update(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+            raise Http404("Profile does not exist")
