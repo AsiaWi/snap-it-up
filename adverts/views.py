@@ -4,6 +4,8 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status, permissions, generics
 from snap_it_up.permissions import IsOwnerOrReadOnly
+from hitcount.models import HitCount
+from hitcount.views import HitCountMixin
 
 
 class AdvertsList(generics.ListCreateAPIView):
@@ -20,7 +22,7 @@ class AdvertsList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-class AdvertDetails(generics.RetrieveUpdateDestroyAPIView):
+class AdvertDetails(HitCountMixin,generics.RetrieveUpdateDestroyAPIView):
     '''
     Detail view for each Advert, get's an object based on pk
     checks permissions to allow access to update and delete or throws  an error
@@ -28,6 +30,7 @@ class AdvertDetails(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Advert.objects.all()
     serializer_class = AdvertSerializer
+    
 
     def get_object(self):
         try:
@@ -36,3 +39,19 @@ class AdvertDetails(generics.RetrieveUpdateDestroyAPIView):
             return obj
         except Advert.DoesNotExist:
             raise Http404("Profile does not exist")
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+
+        # Use existing retrieve method
+        response = super().retrieve(request, *args, **kwargs)
+        
+        # Increment the hit count
+        hit_count = HitCount.objects.get_for_object(instance)
+        # self.hit_count(request, hit_count)
+        hit_count_response = HitCountMixin.hit_count(request, hit_count)
+        
+        # Add hit count to the existing response
+        response.data['hit_count'] = hit_count_response
+
+        return response
