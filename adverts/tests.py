@@ -50,6 +50,9 @@ class AdvertsListTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 class AdvertDetailTest(APITestCase):
+    '''
+    Testing for retrieving, updating and deleting adverts in logged in and unauthorised state
+    '''
     test_image_path = os.path.abspath('snap_it_up/test_image/default_post.jpg')
     def setUp(self):
         FirstTestUser = User.objects.create_user(username='FirstTestUser', password='FirstTestPassword')
@@ -58,10 +61,8 @@ class AdvertDetailTest(APITestCase):
         with open(self.test_image_path, 'rb') as f:
             self.test_image = SimpleUploadedFile(os.path.basename(self.test_image_path), f.read())
 
-        Advert.objects.create(owner=FirstTestUser, image= '../default_profile_hqnms8' , advert_title='TestTitle1', price='10.00', item_description='testing')
+        self.advert = Advert.objects.create(owner=FirstTestUser, image= '../default_profile_hqnms8' , advert_title='TestTitle1', price='10.00', item_description='testing')
         Advert.objects.create(owner=SecondTestUser, image= '../default_profile_hqnms8', advert_title='TestTitle2', price='10.00', item_description='testing')
-
-       
 
     def test_can_retrieve_advert_using_valid_id(self):
         response = self.client.get('/adverts/1/')
@@ -87,6 +88,18 @@ class AdvertDetailTest(APITestCase):
          self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_user_cant_update_another_users_advert(self):
-        self.client.login(username='FirstTestUser', password='SecondTestUser')
+        self.client.login(username='FirstTestUser', password='FirstTestPassword')
         response = self.client.put('/adverts/2/', {'advert_title': 'loser'})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_user_can_delete_own_advert_authorised(self):
+        self.client.login(username='FirstTestUser', password='FirstTestPassword')
+        response = self.client.delete(f'/adverts/{self.advert.pk}/')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertFalse(Advert.objects.filter(pk=self.advert.pk).exists())
+
+    def test_user_cannot_delete_advert_unauthorised(self):
+        self.client.login(username='secondTestUser', password='SecondTestPassword')
+        response = self.client.delete(f'/adverts/{self.advert.pk}/')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertTrue(Advert.objects.filter(pk=self.advert.pk).exists())
