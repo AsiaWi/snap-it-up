@@ -7,7 +7,7 @@ from taggit.serializers import (TagListSerializerField,
 class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
     '''
     Advert model Serializer, all fields serialized
-    owner is read only, is_owner returns true or false -
+    owner is read only, is_owner returns true/false -
     to check if the requesting user is/is not object owner.
     Validate function checks if one of the fields(advert title or tags)are not blank.
     Get page views function- increments page views for each object with the help of hitcount

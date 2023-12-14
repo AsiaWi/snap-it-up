@@ -6,8 +6,8 @@ from hitcount.models import HitCountMixin
 
 
 PAYMENT_OPTIONS = (
-    ('cash', 'Cash'),
-    ('PayPal', 'PayPal'),
+    ('cash', 'Cash only'),
+    ('PayPal', 'PayPal only'),
     ('either', 'Cash or Paypal')
 )
 
@@ -27,7 +27,7 @@ class Advert(models.Model, HitCountMixin):
     advert_title = models.CharField(max_length=50, blank=True)
     tags = TaggableManager(blank=True)
     image = models.ImageField(upload_to='images/', blank=False)
-    price = MoneyField(max_digits=14, decimal_places=2, default_currency='GBP')
+    price = MoneyField(max_digits=14, decimal_places=2, default_currency='GBP', blank = False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     item_description = models.TextField(blank=False, null=False)
