@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'offers',
     'adverts',
     'questions',
+    'replies',
 ]
 
 MIDDLEWARE = [

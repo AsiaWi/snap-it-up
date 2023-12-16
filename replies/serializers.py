@@ -1,18 +1,17 @@
 from rest_framework import serializers
-from .models import Question
+from .models import Reply
 from django.contrib.humanize.templatetags.humanize import naturaltime
-# from ..replies.serializers import ReplySerializer
 
-class QuestionSerializer(serializers.ModelSerializer):
+class ReplySerializer(serializers.ModelSerializer):
     '''
-    Question model serializer, question content with elapsed time shown(naturaltime implementation)
-    Profile of the question owner 
+    Reply model serializer, reply content with elapsed time shown(naturaltime implementation)
+    Profile of the reply owner 
     '''
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
-    asked_by_profile_user = serializers.ReadOnlyField(source="owner.profile.id")
+    created_by_profile_user = serializers.ReadOnlyField(source="owner.profile.id")
     profile_image = serializers.ReadOnlyField(source="owner.profile.profile_image.url")
 
 
@@ -27,16 +26,11 @@ class QuestionSerializer(serializers.ModelSerializer):
         return naturaltime(obj.created_at)
 
     class Meta:
-        model = Question
+        model = Reply
         fields = '__all__'
 
-class QuestionDetailsSerializer(QuestionSerializer):
+class ReplyDetailsSerializer(ReplySerializer):
     '''
-    Serializer for the question shown in detail view
+    Serializer for the reply shown in detail view
     '''
-    advert = serializers.ReadOnlyField(source='advert.id')
-    # replies = ReplySerializer(many= True)
-
-    class Meta:
-        model = Question
-        fields = '__all__'
+    question = serializers.ReadOnlyField(source='question.id')
