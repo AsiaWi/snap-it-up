@@ -9,7 +9,7 @@ class AdvertsListTest(APITestCase):
     '''
     Test List View for Advert model
     Setting up a Test User
-    Testing Objects can be listed
+    Testing if Objects can be listed
     Testing if authorised user can create an advert
     Testing if unauthorised user can create advert
     '''
@@ -45,7 +45,6 @@ class AdvertsListTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_create_advert_unauthorised_user(self):
-        
         response = self.client.post('/adverts/', {'image': self.test_image ,'tags': 'test', 'advert_title': 'TestTitle', 'price':'10.00', 'item_description':'testing'})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
@@ -61,8 +60,8 @@ class AdvertDetailTest(APITestCase):
         with open(self.test_image_path, 'rb') as f:
             self.test_image = SimpleUploadedFile(os.path.basename(self.test_image_path), f.read())
 
-        self.advert = Advert.objects.create(owner=FirstTestUser, image= '../default_profile_hqnms8' , advert_title='TestTitle1', price='10.00', item_description='testing')
-        Advert.objects.create(owner=SecondTestUser, image= '../default_profile_hqnms8', advert_title='TestTitle2', price='10.00', item_description='testing')
+        self.advert = Advert.objects.create(owner=FirstTestUser, image= 'default_post' , advert_title='TestTitle1', price='10.00', item_description='testing')
+        Advert.objects.create(owner=SecondTestUser, image= 'default_post', advert_title='TestTitle2', price='10.00', item_description='testing')
 
     def test_can_retrieve_advert_using_valid_id(self):
         response = self.client.get('/adverts/1/')
