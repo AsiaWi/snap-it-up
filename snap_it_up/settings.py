@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'djmoney',
     'hitcount',
     'taggit',
+    'django_humanize',
 
     # APPS
     'profiles',
