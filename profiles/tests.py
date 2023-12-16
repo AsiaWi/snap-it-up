@@ -7,7 +7,7 @@ from rest_framework import status
 
 class ProfileListTest(APITestCase):
     '''
-    Profile creation test
+    Profile creation upon registration test.
     '''
     def setUp(self):
         user = User.objects.create_user(username="TestUser", password="TestPassword")

@@ -19,6 +19,9 @@ class ProfileList(APIView):
 
 
 class ProfileDetails(RetrieveUpdateAPIView):
+    '''
+    Retrieve and update profile, check permissions before each action taken
+    '''
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
