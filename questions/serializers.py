@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Question
 from django.contrib.humanize.templatetags.humanize import naturaltime
-# from ..replies.serializers import ReplySerializer
+# from replies.serializers import ReplySerializer
 
 class QuestionSerializer(serializers.ModelSerializer):
     '''
@@ -14,7 +14,6 @@ class QuestionSerializer(serializers.ModelSerializer):
     updated_at = serializers.SerializerMethodField()
     asked_by_profile_user = serializers.ReadOnlyField(source="owner.profile.id")
     profile_image = serializers.ReadOnlyField(source="owner.profile.profile_image.url")
-
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -29,6 +28,7 @@ class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = '__all__'
+
 
 class QuestionDetailsSerializer(QuestionSerializer):
     '''

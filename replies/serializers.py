@@ -14,7 +14,6 @@ class ReplySerializer(serializers.ModelSerializer):
     created_by_profile_user = serializers.ReadOnlyField(source="owner.profile.id")
     profile_image = serializers.ReadOnlyField(source="owner.profile.profile_image.url")
 
-
     def get_is_owner(self, obj):
         request = self.context['request']
         return request.user == obj.owner
@@ -28,6 +27,7 @@ class ReplySerializer(serializers.ModelSerializer):
     class Meta:
         model = Reply
         fields = '__all__'
+
 
 class ReplyDetailsSerializer(ReplySerializer):
     '''

@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include('adverts.urls')),
     path('', include('questions.urls')),
     path('', include('replies.urls')),
+    path('', include('save.urls')),
 ]

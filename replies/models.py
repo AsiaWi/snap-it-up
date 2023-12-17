@@ -4,7 +4,7 @@ from questions.models import Question
 
 class Reply(models.Model):
     '''
-    Reply model related to AQuestion and User, deleted on Question/User deletion.
+    Reply model related to Question and User, deleted on Question/User deletion.
     '''
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)

@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'adverts',
     'questions',
     'replies',
+    'save',
 ]
 
 MIDDLEWARE = [
