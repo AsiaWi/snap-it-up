@@ -6,6 +6,8 @@ from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
+from django.db.models import Count
+from rest_framework import filters
 
 
 class ProfileList(APIView):
@@ -13,7 +15,9 @@ class ProfileList(APIView):
     List all profiles, profile creation handled by django signals 
     '''
     def get(self, request):
-        profiles = Profile.objects.all()
+        profiles = Profile.objects.annotate(
+            advert_count=Count('owner__advert', distinct=True)
+        )
         serializer = ProfileSerializer(profiles, many=True, context={'request': request})
         return Response(serializer.data)
 
