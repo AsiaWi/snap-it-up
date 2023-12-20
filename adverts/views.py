@@ -2,10 +2,11 @@ from .serializers import AdvertSerializer
 from .models import Advert
 from django.shortcuts import render
 from rest_framework.response import Response
-from rest_framework import status, permissions, generics
+from rest_framework import status, permissions, generics, filters
 from snap_it_up.permissions import IsOwnerOrReadOnly
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
+from django.db.models import Count
 
 
 class AdvertsList(generics.ListCreateAPIView):
@@ -21,7 +22,20 @@ class AdvertsList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+    
+    # filter_backends = [
+    #     filters.SearchFilter,
+    #     filters.OrderingFilter,
+    # ]
 
+    # search_fields = [
+    #     'advert_title',
+    #     'tags',
+    # ]
+
+    # ordering_fields = [
+    #     'page_views'
+    # ]
 class AdvertDetails(HitCountMixin,generics.RetrieveUpdateDestroyAPIView):
     '''
     Detail view for each Advert, get's an object based on pk
@@ -38,7 +52,7 @@ class AdvertDetails(HitCountMixin,generics.RetrieveUpdateDestroyAPIView):
             self.check_object_permissions(self.request, obj)
             return obj
         except Advert.DoesNotExist:
-            raise Http404("Profile does not exist")
+            raise Http404("Advert does not exist")
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()

@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'questions',
     'replies',
     'save',
+    'rating',
 ]
 
 MIDDLEWARE = [

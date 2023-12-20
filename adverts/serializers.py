@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Advert
 from taggit.serializers import (TagListSerializerField,
                                 TaggitSerializer)
+from save.models import Save
 
 
 class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
@@ -18,6 +19,7 @@ class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     page_views = serializers.SerializerMethodField()
+    save_id = serializers.SerializerMethodField()
     
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -35,6 +37,15 @@ class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
             return obj.hit_count.hits
         except:
             pass
+    
+    def get_save_id(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            save = Save.objects.filter(
+                owner=user, advert=obj
+            ).first()
+            return save.id if save else None
+        return None
 
     # this function fully copied from CI walkthrough
     def validate_image(self, value):

@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
 from django.db.models import Count
-from rest_framework import filters
+# from rest_framework import filters
 
 
 class ProfileList(APIView):
@@ -27,7 +27,9 @@ class ProfileDetails(RetrieveUpdateAPIView):
     Retrieve and update profile, check permissions before each action taken
     '''
     permission_classes = [IsOwnerOrReadOnly]
-    queryset = Profile.objects.all()
+    queryset = Profile.objects.annotate(
+            advert_count=Count('owner__advert', distinct=True)
+        )
     serializer_class = ProfileSerializer
 
     def get_object(self):

@@ -24,4 +24,5 @@ urlpatterns = [
     path('', include('questions.urls')),
     path('', include('replies.urls')),
     path('', include('save.urls')),
+    path('', include('rating.urls')),
 ]
