@@ -25,4 +25,5 @@ urlpatterns = [
     path('', include('replies.urls')),
     path('', include('save.urls')),
     path('', include('rating.urls')),
+    path('', include('offers.urls')),
 ]

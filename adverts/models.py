@@ -5,17 +5,17 @@ from djmoney.models.fields import MoneyField
 from hitcount.models import HitCountMixin
 
 
-PAYMENT_OPTIONS = (
-    ('cash', 'Cash only'),
-    ('PayPal', 'PayPal only'),
-    ('either', 'Cash or Paypal')
-)
+PAYMENT_OPTIONS = [
+    ('CASH', 'Cash only'),
+    ('PAYPAL', 'PayPal only'),
+    ('EITHER', 'Cash or Paypal')
+]
 
-SHIPPMENT_OPTIONS = (
-    ('collection', 'Collection Only'),
-    ('postage', 'Royal Mail Only'),
-    ('either', 'Collection or Royal Mail delivery')
-)
+SHIPPMENT_OPTIONS = [
+    ('COLLECTION', 'Collection Only'),
+    ('POSTAGE', 'Royal Mail Only'),
+    ('EITHER', 'Collection or Royal Mail delivery')
+]
 
 
 class Advert(models.Model, HitCountMixin):
@@ -32,9 +32,10 @@ class Advert(models.Model, HitCountMixin):
     updated_at = models.DateTimeField(auto_now=True)
     item_description = models.TextField(blank=False, null=False)
     payment_options = models.CharField(max_length=20, choices=PAYMENT_OPTIONS,
-                               default='either')
+                               default='EITHER')
     shippment_options = models.CharField(max_length=50, choices=SHIPPMENT_OPTIONS,
-                               default='either')
+                               default='EITHER')
+    active = models.BooleanField(default=True)
     
     class Meta:
         ordering = ['-created_at', '-updated_at']
