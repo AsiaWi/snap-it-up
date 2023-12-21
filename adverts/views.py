@@ -45,7 +45,6 @@ class AdvertDetails(HitCountMixin,generics.RetrieveUpdateDestroyAPIView):
     queryset = Advert.objects.all()
     serializer_class = AdvertSerializer
     
-
     def get_object(self):
         try:
             obj = self.get_queryset().get(pk=self.kwargs['pk'])
@@ -55,17 +54,15 @@ class AdvertDetails(HitCountMixin,generics.RetrieveUpdateDestroyAPIView):
             raise Http404("Advert does not exist")
 
     def retrieve(self, request, *args, **kwargs):
+        '''
+        Use existing retrieve method
+        Increment the hit count
+        Add hit count to the existing response
+        '''
         instance = self.get_object()
-
-        # Use existing retrieve method
         response = super().retrieve(request, *args, **kwargs)
-        
-        # Increment the hit count
         hit_count = HitCount.objects.get_for_object(instance)
-        # self.hit_count(request, hit_count)
         hit_count_response = HitCountMixin.hit_count(request, hit_count)
-        
-        # Add hit count to the existing response
         response.data['hit_count'] = hit_count_response
 
         return response
