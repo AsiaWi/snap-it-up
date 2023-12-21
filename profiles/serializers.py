@@ -14,8 +14,9 @@ class ProfileSerializer(serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField()
     advert_count = serializers.ReadOnlyField()
     rating_count = serializers.ReadOnlyField()
-    average_rating = serializers.ReadOnlyField()
+    average_rating = serializers.SerializerMethodField()
     
+
     def get_average_rating(self, obj):
         return round(obj.calculate_average_rating())
 

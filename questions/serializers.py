@@ -6,7 +6,8 @@ from replies.serializers import ReplySerializer
 class QuestionSerializer(serializers.ModelSerializer):
     '''
     Question model serializer, question content with elapsed time shown(naturaltime implementation)
-    Profile of the question owner 
+    Profile of the question owner
+    Replies count and replies itself added.
     '''
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
@@ -46,7 +47,6 @@ class QuestionDetailsSerializer(QuestionSerializer):
     Serializer for the question shown in detail view
     '''
     advert = serializers.ReadOnlyField(source='advert.id')
-    # replies = ReplySerializer(many= True)
 
     class Meta:
         model = Question
