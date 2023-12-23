@@ -8,7 +8,7 @@ class Save(models.Model):
     Save model,(related to user and advert) user can save an advert by
     clicking an icon
     List view enables user to easily access all saved adverts
-    'unique_together' makes sure a user can't like the same post twice.
+    'unique_together' makes sure a user can't save the same post twice.
     """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     advert = models.ForeignKey(Advert, on_delete=models.CASCADE)

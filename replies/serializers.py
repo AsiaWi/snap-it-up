@@ -36,5 +36,6 @@ class ReplySerializer(serializers.ModelSerializer):
 class ReplyDetailsSerializer(ReplySerializer):
     '''
     Serializer for the reply shown in detail view
+    Question releted to the reply set as read only
     '''
     question = serializers.ReadOnlyField(source='question.id')

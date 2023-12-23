@@ -13,6 +13,11 @@ OFFER_STATUS = [
 
 
 class Offer(models.Model):
+    '''
+    Offer model to submit an offer from buyer to seller
+    Save method gets seller as an advert owner if not 
+    already present
+    '''
     advert = models.ForeignKey(Advert, on_delete=models.CASCADE)
     buyer = models.ForeignKey(User, related_name='offers_made',
                               on_delete=models.CASCADE)
@@ -29,3 +34,6 @@ class Offer(models.Model):
         if not self.seller_id:
             self.seller = self.advert.owner
         super().save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['-created_at']

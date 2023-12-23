@@ -4,6 +4,12 @@ from django.contrib.humanize.templatetags.humanize import naturaltime
 
 
 class OfferSerializer(serializers.ModelSerializer):
+    '''
+    All Offer model fields serialized.
+    Time for created and updated field displayed with the help
+    of naturaltime.
+    Profile ID and profile image - additional fields
+    '''
     buyer = serializers.ReadOnlyField(source='buyer.username')
     seller = serializers.SerializerMethodField()
     created_at = serializers.SerializerMethodField()
@@ -25,3 +31,15 @@ class OfferSerializer(serializers.ModelSerializer):
     class Meta:
         model = Offer
         fields = '__all__'
+
+
+class OfferListSerializer(OfferSerializer):
+    '''
+    OfferListSerializer with OfferSerializer passed in
+    Overriden displayed serialized fields, excluded message
+    field in list view to allow users privately share personal
+    details once transaction is accepted
+    '''
+    class Meta:
+        model = Offer
+        exclude = ['message']

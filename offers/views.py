@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
 from .models import Advert, Offer
-from .serializers import OfferSerializer
+from .serializers import OfferSerializer, OfferListSerializer
 from rest_framework.exceptions import PermissionDenied
 from rest_framework import status
 from rest_framework.response import Response
@@ -9,8 +9,13 @@ from rest_framework.exceptions import MethodNotAllowed
 
 
 class OfferCreate(generics.ListCreateAPIView):
+    '''
+    Offer ListCreate view provides GET and POST methods
+    to allow for listing all offers and creating an offer.
+    Permissions checked- available for auth users only
+    '''
     queryset = Offer.objects.all()
-    serializer_class = OfferSerializer
+    serializer_class = OfferListSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
@@ -18,6 +23,14 @@ class OfferCreate(generics.ListCreateAPIView):
 
 
 class OfferDetails(generics.RetrieveUpdateAPIView):
+    '''
+    Offer detail view, permissions to view only by
+    a seller or a buyer if logged in.
+    PUT method checks if offer status is 'ACCEPTED'
+    if so- advert active status sets to false.
+    Once offer accepted users can still exchange messages
+    however unable to change the status.
+    '''
     queryset = Offer.objects.all()
     serializer_class = OfferSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]

@@ -6,7 +6,7 @@ class Rating(models.Model):
     '''
     Rating model allows for user to rate another user.
     Star rating and feedback can be left.
-    Profiles can be rated as many times
+    Profiles can be rated many times
     '''
     owner = models.ForeignKey(User, related_name='rated_by',
                               on_delete=models.CASCADE)

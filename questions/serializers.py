@@ -9,7 +9,7 @@ class QuestionSerializer(serializers.ModelSerializer):
     Question model serializer, question content with elapsed time shown
     (naturaltime implementation)
     Profile of the question owner
-    Replies count and replies itself added.
+    Replies count and replies model added.
     '''
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()

@@ -30,6 +30,7 @@ class ProfileList(APIView):
 class ProfileDetails(RetrieveUpdateAPIView):
     '''
     Retrieve and update profile, check permissions before each action taken
+    PUT method allows to change location or profile picture only.
     '''
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Profile.objects.annotate(

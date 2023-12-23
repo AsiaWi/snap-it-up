@@ -19,7 +19,7 @@ class ReplyListView(generics.ListCreateAPIView):
 class ReplyDetail(generics.RetrieveUpdateDestroyAPIView):
     '''
     Detail view for each Reply, get's an object based on pk
-    checks permissions to allow access to update and delete or throws  an error
+    checks permissions to allow access to update and delete or throws an error
     '''
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Reply.objects.all()
