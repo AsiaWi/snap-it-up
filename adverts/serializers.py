@@ -20,6 +20,7 @@ class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     page_views = serializers.SerializerMethodField()
     save_id = serializers.SerializerMethodField()
+    active= serializers.ReadOnlyField()
     
     def get_is_owner(self, obj):
         request = self.context['request']

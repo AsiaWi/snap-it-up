@@ -25,7 +25,7 @@ class ProfileList(APIView):
             profile.average_rating = profile.calculate_average_rating()
         return Response(serializer.data)
         
-        
+
 class ProfileDetails(RetrieveUpdateAPIView):
     '''
     Retrieve and update profile, check permissions before each action taken
@@ -39,6 +39,7 @@ class ProfileDetails(RetrieveUpdateAPIView):
     def get_object(self):
         try:
             obj = self.get_queryset().get(pk=self.kwargs['pk'])
+            
             self.check_object_permissions(self.request, obj)
             return obj
         except Profile.DoesNotExist:
