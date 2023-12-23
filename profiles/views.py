@@ -21,11 +21,11 @@ class ProfileList(APIView):
             rating_count = Count('owner__rated_user', distinct=True)
         )
         serializer = ProfileSerializer(profiles, many=True, context={'request': request})
-        return Response(serializer.data)
-        
         for profile in profiles:
             profile.average_rating = profile.calculate_average_rating()
-
+        return Response(serializer.data)
+        
+        
 class ProfileDetails(RetrieveUpdateAPIView):
     '''
     Retrieve and update profile, check permissions before each action taken
