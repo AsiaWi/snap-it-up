@@ -15,14 +15,14 @@ class ProfileSerializer(serializers.ModelSerializer):
     advert_count = serializers.ReadOnlyField()
     rating_count = serializers.ReadOnlyField()
     average_rating = serializers.ReadOnlyField()
-    
+
     def get_average_rating(self, obj):
-        return round(obj.calculate_average_rating(),2)
+        return round(obj.calculate_average_rating(), 2)
 
     def get_is_owner(self, obj):
         request = self.context['request']
         return request.user == obj.owner
-    
+
     def get_created_at(self, obj):
         return naturaltime(obj.created_at)
 

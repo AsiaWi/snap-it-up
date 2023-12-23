@@ -3,6 +3,7 @@ from .serializers import SaveSerializer
 from rest_framework import generics, permissions
 from snap_it_up.permissions import IsOwnerOrReadOnly
 
+
 class SaveListView(generics.ListCreateAPIView):
     '''
     View saved adverts list
@@ -15,6 +16,7 @@ class SaveListView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+
 class SavedDetail(generics.RetrieveDestroyAPIView):
     '''
     Retrieve a saved item by id
@@ -24,4 +26,3 @@ class SavedDetail(generics.RetrieveDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Save.objects.all()
     serializer_class = SaveSerializer
-    

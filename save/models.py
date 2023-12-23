@@ -5,7 +5,8 @@ from adverts.models import Advert
 
 class Save(models.Model):
     """
-    Save model,(related to user and advert) user can save an advert by clicking an icon
+    Save model,(related to user and advert) user can save an advert by
+    clicking an icon
     List view enables user to easily access all saved adverts
     'unique_together' makes sure a user can't like the same post twice.
     """

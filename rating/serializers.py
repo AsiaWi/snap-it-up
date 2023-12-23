@@ -14,12 +14,14 @@ class RatingSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
-    
+
     def create(self, validated_data):
         rated_user = validated_data['rated_user']
         owner = self.context['request'].user
         if rated_user == owner:
-            raise serializers.ValidationError({'detail': 'You cannot rate your own profile'})
+            raise serializers.ValidationError(
+                {'detail': 'You cannot rate your own profile'}
+                 )
 
         rating_instance = Rating.objects.create(
             owner=owner,
@@ -28,7 +30,7 @@ class RatingSerializer(serializers.ModelSerializer):
             feedback=validated_data.get('feedback', '')
         )
         return rating_instance
-    
+
     def get_created_at(self, obj):
         return naturaltime(obj.created_at)
 

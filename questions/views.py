@@ -3,6 +3,7 @@ from .serializers import QuestionSerializer, QuestionDetailsSerializer
 from rest_framework import generics, permissions
 from snap_it_up.permissions import IsOwnerOrReadOnly
 
+
 class QuestionListView(generics.ListCreateAPIView):
     '''
     View questions list and create a comment only if authorised
@@ -14,6 +15,7 @@ class QuestionListView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+
 class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
     '''
     Detail view for each Question, get's an object based on pk
@@ -22,4 +24,3 @@ class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
-    

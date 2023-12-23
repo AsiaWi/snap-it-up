@@ -11,18 +11,18 @@ from django.db.models import Count
 
 class AdvertsList(generics.ListCreateAPIView):
     '''
-    AdvertListCreate View provides GET method to provide a list 
+    AdvertListCreate View provides GET method to provide a list
     and allows to create a post with POST method
     '''
     serializer_class = AdvertSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    
+
     def get_queryset(self):
         return Advert.objects.all().order_by('-updated_at')
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
-    
+
     # filter_backends = [
     #     filters.SearchFilter,
     #     filters.OrderingFilter,
@@ -36,7 +36,9 @@ class AdvertsList(generics.ListCreateAPIView):
     # ordering_fields = [
     #     'page_views'
     # ]
-class AdvertDetails(HitCountMixin,generics.RetrieveUpdateDestroyAPIView):
+
+
+class AdvertDetails(HitCountMixin, generics.RetrieveUpdateDestroyAPIView):
     '''
     Detail view for each Advert, get's an object based on pk
     checks permissions to allow access to update and delete or throws  an error
@@ -44,7 +46,7 @@ class AdvertDetails(HitCountMixin,generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Advert.objects.all()
     serializer_class = AdvertSerializer
-    
+
     def get_object(self):
         try:
             obj = self.get_queryset().get(pk=self.kwargs['pk'])

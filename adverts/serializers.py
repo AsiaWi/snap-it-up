@@ -10,8 +10,10 @@ class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
     Advert model Serializer, all fields serialized
     owner is read only, is_owner returns true/false -
     to check if the requesting user is/is not object owner.
-    Validate function checks if one of the fields(advert title or tags)are not blank.
-    Get page views function- increments page views for each object with the help of hitcount
+    Validate function checks if one of the fields(advert title or tags)
+    are not blank.
+    Get page views function- increments page views for each object
+    with the help of hitcount
     '''
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
@@ -20,25 +22,28 @@ class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     page_views = serializers.SerializerMethodField()
     save_id = serializers.SerializerMethodField()
-    active= serializers.ReadOnlyField()
-    
+    active = serializers.ReadOnlyField()
+
     def get_is_owner(self, obj):
         request = self.context['request']
         return request.user == obj.owner
-    
+
     def validate(self, data):
         advert_title = data.get('advert_title')
         tags = data.get('tags')
         if not advert_title and not tags:
-            raise ValidationError('At least one of the fields: advert title or tags must be provided')
+            raise ValidationError
+            (
+             'At least one of the fields:advert title or tags must be provided'
+                )
         return data
 
     def get_page_views(self, obj):
         try:
             return obj.hit_count.hits
-        except:
+        except AttributeError:
             pass
-    
+
     def get_save_id(self, obj):
         user = self.context['request'].user
         if user.is_authenticated:

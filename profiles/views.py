@@ -14,17 +14,18 @@ class ProfileList(APIView):
     List all profiles, profile creation handled by django signals
     return number of adverts and number of ratings received by user
     '''
-    
+
     def get(self, request):
         profiles = Profile.objects.annotate(
             advert_count=Count('owner__advert', distinct=True),
-            rating_count = Count('owner__rated_user', distinct=True)
+            rating_count=Count('owner__rated_user', distinct=True)
         )
-        serializer = ProfileSerializer(profiles, many=True, context={'request': request})
+        serializer = ProfileSerializer(profiles, many=True,
+                                       context={'request': request})
         for profile in profiles:
             profile.average_rating = profile.calculate_average_rating()
         return Response(serializer.data)
-        
+
 
 class ProfileDetails(RetrieveUpdateAPIView):
     '''
@@ -39,7 +40,6 @@ class ProfileDetails(RetrieveUpdateAPIView):
     def get_object(self):
         try:
             obj = self.get_queryset().get(pk=self.kwargs['pk'])
-            
             self.check_object_permissions(self.request, obj)
             return obj
         except Profile.DoesNotExist:

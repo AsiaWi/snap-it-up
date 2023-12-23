@@ -2,6 +2,7 @@ from save.models import Save
 from rest_framework import serializers
 from django.db import IntegrityError
 
+
 class SaveSerializer(serializers.ModelSerializer):
     """
     Serializer for the Save model

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from adverts.models import Advert
 
+
 class Question(models.Model):
     '''
     Question model related to Advert and User, deleted on Advert/User deletion.
