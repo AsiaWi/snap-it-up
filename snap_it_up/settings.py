@@ -61,7 +61,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = ['8000-asiawi-snapitupbackend-k97fkgtbvqj.ws-eu107.gitpod.io','https://snap-it-up-25ef84f951df.herokuapp.com']
-CSRF_TRUSTED_ORIGINS = ["https://8000-asiawi-snapitupbackend-k97fkgtbvqj.ws-eu107.gitpod.io"]
+CSRF_TRUSTED_ORIGINS = ["https://8000-asiawi-snapitupbackend-k97fkgtbvqj.ws-eu107.gitpod.io", 'https://snap-it-up-25ef84f951df.herokuapp.com']
 
 # Application definition
 
