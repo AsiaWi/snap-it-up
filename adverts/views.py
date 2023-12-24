@@ -23,19 +23,21 @@ class AdvertsList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-    # filter_backends = [
-    #     filters.SearchFilter,
-    #     filters.OrderingFilter,
-    # ]
+    filter_backends = [
+        filters.SearchFilter,
+        filters.OrderingFilter,
+     ]
 
-    # search_fields = [
-    #     'advert_title',
-    #     'tags',
-    # ]
+    search_fields = [
+        'advert_title',
+        'tags__name',
+        'item_description'
+     ]
 
-    # ordering_fields = [
-    #     'page_views'
-    # ]
+    ordering_fields = [
+         'price',
+         'created_at',
+    ]
 
 
 class AdvertDetails(HitCountMixin, generics.RetrieveUpdateDestroyAPIView):
