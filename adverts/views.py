@@ -18,7 +18,9 @@ class AdvertsList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
-        return Advert.objects.all().order_by('-updated_at')
+        return Advert.objects.annotate(
+            save_count=Count('save', distinct=True)
+        ).order_by('-updated_at')
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -35,6 +37,7 @@ class AdvertsList(generics.ListCreateAPIView):
      ]
 
     ordering_fields = [
+         'save_count',
          'price',
          'created_at',
     ]

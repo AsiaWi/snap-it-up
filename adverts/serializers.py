@@ -3,6 +3,8 @@ from .models import Advert
 from taggit.serializers import (TagListSerializerField,
                                 TaggitSerializer)
 from save.models import Save
+from profiles.models import Profile
+from django.contrib.humanize.templatetags.humanize import naturaltime
 
 
 class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
@@ -23,6 +25,23 @@ class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
     page_views = serializers.SerializerMethodField()
     save_id = serializers.SerializerMethodField()
     active = serializers.ReadOnlyField()
+    profile_location = serializers.SerializerMethodField()
+    created_at = serializers.SerializerMethodField()
+    updated_at = serializers.SerializerMethodField()
+    save_count = serializers.ReadOnlyField()
+
+
+    def get_created_at(self, obj):
+        return naturaltime(obj.created_at)
+
+    def get_updated_at(self, obj):
+        return naturaltime(obj.created_at)
+
+    def get_profile_location(self, obj):
+        try:
+            return obj.owner.profile.location or "Profile's location unknown"
+        except AttributeError:
+            return "Profile's location unknown"
 
     def get_is_owner(self, obj):
         request = self.context['request']

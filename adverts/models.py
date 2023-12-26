@@ -6,15 +6,17 @@ from hitcount.models import HitCountMixin
 
 
 PAYMENT_OPTIONS = [
+    ('EITHER', 'Cash or Paypal'),
     ('CASH', 'Cash only'),
-    ('PAYPAL', 'PayPal only'),
-    ('EITHER', 'Cash or Paypal')
+    ('PAYPAL', 'PayPal only')
+    
 ]
 
 SHIPPMENT_OPTIONS = [
+    ('EITHER', 'Collection or Royal Mail delivery'),
     ('COLLECTION', 'Collection Only'),
-    ('POSTAGE', 'Royal Mail Only'),
-    ('EITHER', 'Collection or Royal Mail delivery')
+    ('POSTAGE', 'Royal Mail Only')
+    
 ]
 
 
