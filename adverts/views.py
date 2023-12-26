@@ -49,7 +49,9 @@ class AdvertDetails(HitCountMixin, generics.RetrieveUpdateDestroyAPIView):
     checks permissions to allow access to update and delete or throws  an error
     '''
     permission_classes = [IsOwnerOrReadOnly]
-    queryset = Advert.objects.all()
+    queryset = Advert.objects.annotate(
+            save_count=Count('save', distinct=True)
+        )
     serializer_class = AdvertSerializer
 
     def get_object(self):
