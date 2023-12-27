@@ -6,16 +6,16 @@ from hitcount.models import HitCountMixin
 
 
 PAYMENT_OPTIONS = [
-    ('EITHER', 'Cash or Paypal'),
-    ('CASH', 'Cash only'),
-    ('PAYPAL', 'PayPal only')
+    ('Cash or Paypal', 'Cash or Paypal'),
+    ('Cash only', 'Cash only'),
+    ('PayPal only', 'PayPal only')
     
 ]
 
 SHIPPMENT_OPTIONS = [
-    ('EITHER', 'Collection or Royal Mail delivery'),
-    ('COLLECTION', 'Collection Only'),
-    ('POSTAGE', 'Royal Mail Only')
+    ('Collection or delivery', 'Collection or delivery'),
+    ('Collection Only', 'Collection Only'),
+    ('Delivery Only', 'Delivery Only')
     
 ]
 
@@ -35,10 +35,10 @@ class Advert(models.Model, HitCountMixin):
     updated_at = models.DateTimeField(auto_now=True)
     item_description = models.TextField(blank=False, null=False)
     payment_options = models.CharField(max_length=20, choices=PAYMENT_OPTIONS,
-                                       default='EITHER')
+                                       default='Cash or Paypal')
     shippment_options = models.CharField(max_length=50,
                                          choices=SHIPPMENT_OPTIONS,
-                                         default='EITHER')
+                                         default='Collection or delivery')
     active = models.BooleanField(default=True)
 
     class Meta:
