@@ -21,7 +21,7 @@ class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     tags = TagListSerializerField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
-    profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
+    profile_image = serializers.ReadOnlyField(source='owner.profile.profile_image.url')
     page_views = serializers.SerializerMethodField()
     save_id = serializers.SerializerMethodField()
     active = serializers.ReadOnlyField()
