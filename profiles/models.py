@@ -13,7 +13,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     profile_image = models.ImageField(upload_to='images/',
-                                      default='../default_profile_hqnms8')
+                                      default='../icons8-person-female-100_q2xckn')
 
     def calculate_average_rating(self):
         ratings = Rating.objects.filter(rated_user=self.owner)

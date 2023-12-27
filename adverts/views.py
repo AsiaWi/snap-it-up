@@ -39,7 +39,7 @@ class AdvertsList(generics.ListCreateAPIView):
     ordering_fields = [
          'save_count',
          'price',
-         'created_at',
+         'created_at'
     ]
 
 
