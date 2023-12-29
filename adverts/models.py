@@ -19,6 +19,21 @@ SHIPPMENT_OPTIONS = [
     
 ]
 
+CATEGORIES = [
+    ('Clothing', 'Clothing'),
+    ('Electronics', 'Electronics'),
+    ('HomeDeco/Furniture', 'HomeDeco/Furniture'),
+    ('Games', 'Games'),
+    ('Books', 'Books'),
+    ('Beauty/Personal Care', 'Beauty/Personal Care'),
+    ('Home appliances', 'Home appliances'),
+    ('Vintage', 'Vintage'),
+    ('Baby', 'Baby'),
+    ('Pets', 'Pets'),
+    ('Sports', 'Sports'),
+    ('Other', 'Other')
+]
+
 
 class Advert(models.Model, HitCountMixin):
     '''
@@ -40,6 +55,9 @@ class Advert(models.Model, HitCountMixin):
                                          choices=SHIPPMENT_OPTIONS,
                                          default='Collection or delivery')
     active = models.BooleanField(default=True)
+    categories = models.CharField(max_length=100,
+                                  choices=CATEGORIES,
+                                  default='Clothing')
 
     class Meta:
         ordering = ['-created_at', '-updated_at']
