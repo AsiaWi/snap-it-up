@@ -43,7 +43,7 @@ class Advert(models.Model, HitCountMixin):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     advert_title = models.CharField(max_length=50, blank=True)
     tags = TaggableManager(blank=True)
-    image = models.ImageField(upload_to='images/', blank=False)
+    image = models.ImageField(upload_to='images/', default='../upload.png_t8qvp6')
     price = MoneyField(max_digits=14, decimal_places=2, default_currency='GBP',
                        blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
