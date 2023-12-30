@@ -35,7 +35,7 @@ class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
         return naturaltime(obj.created_at)
 
     def get_updated_at(self, obj):
-        return naturaltime(obj.created_at)
+        return naturaltime(obj.updated_at)
 
     def get_profile_location(self, obj):
         try:
