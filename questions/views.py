@@ -2,6 +2,7 @@ from .models import Question
 from .serializers import QuestionSerializer, QuestionDetailsSerializer
 from rest_framework import generics, permissions
 from snap_it_up.permissions import IsOwnerOrReadOnly
+from rest_framework import filters
 
 class QuestionListView(generics.ListCreateAPIView):
     '''
@@ -10,6 +11,8 @@ class QuestionListView(generics.ListCreateAPIView):
     serializer_class = QuestionSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Question.objects.all()
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['advert__id']
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
