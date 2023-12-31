@@ -7,6 +7,7 @@ from snap_it_up.permissions import IsOwnerOrReadOnly
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 from django.db.models import Count
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class AdvertsList(generics.ListCreateAPIView):
@@ -28,7 +29,13 @@ class AdvertsList(generics.ListCreateAPIView):
     filter_backends = [
         filters.SearchFilter,
         filters.OrderingFilter,
+        DjangoFilterBackend,
      ]
+
+    filterset_fields = [
+        "save__owner__profile",
+        "owner__profile",
+    ]
 
     search_fields = [
         'advert_title',
