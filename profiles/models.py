@@ -21,7 +21,7 @@ class Profile(models.Model):
         if total_ratings > 0:
             sum_of_ratings = sum([rating.rating for rating in ratings])
             return sum_of_ratings / total_ratings
-        return 'None'
+        return 'N/A'
 
     def __str__(self):
         return f"{self.owner}'s profile"

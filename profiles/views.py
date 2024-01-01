@@ -33,11 +33,6 @@ class ProfileDetails(RetrieveUpdateAPIView):
     PUT method allows to change location or profile picture only.
     '''
     permission_classes = [IsOwnerOrReadOnly]
-    # queryset = Profile.objects.annotate(
-    #         advert_count=Count('owner__advert', distinct=True),
-    #         rating_count=Count('owner__rated_user', distinct=True)
-    #     )
-
     serializer_class = ProfileSerializer
 
     def get_object(self):
