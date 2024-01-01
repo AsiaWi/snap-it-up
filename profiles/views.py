@@ -33,15 +33,21 @@ class ProfileDetails(RetrieveUpdateAPIView):
     PUT method allows to change location or profile picture only.
     '''
     permission_classes = [IsOwnerOrReadOnly]
-    queryset = Profile.objects.annotate(
-            advert_count=Count('owner__advert', distinct=True)
-        )
+    # queryset = Profile.objects.annotate(
+    #         advert_count=Count('owner__advert', distinct=True),
+    #         rating_count=Count('owner__rated_user', distinct=True)
+    #     )
+
     serializer_class = ProfileSerializer
 
     def get_object(self):
         try:
-            obj = self.get_queryset().get(pk=self.kwargs['pk'])
-            self.check_object_permissions(self.request, obj)
-            return obj
+           obj = Profile.objects.annotate(
+                advert_count=Count('owner__advert', distinct=True),
+                rating_count=Count('owner__rated_user', distinct=True)
+           ).get(pk=self.kwargs['pk'])
+           self.check_object_permissions(self.request, obj)
+           obj.average_rating = obj.calculate_average_rating()
+           return obj
         except Profile.DoesNotExist:
             raise Http404("Profile does not exist")
