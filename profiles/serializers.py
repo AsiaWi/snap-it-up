@@ -17,7 +17,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     average_rating = serializers.ReadOnlyField()
 
     def get_average_rating(self, obj):
-        return round(obj.calculate_average_rating(), 2)
+        return round(obj.calculate_average_rating(),2)
 
     def get_is_owner(self, obj):
         request = self.context['request']
