@@ -9,6 +9,7 @@ OFFER_STATUS = [
         ('PENDING', 'Pending'),
         ('ACCEPTED', 'Accepted'),
         ('REJECTED', 'Rejected'),
+        ('SOLD', 'Sold'),
     ]
 
 

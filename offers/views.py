@@ -53,13 +53,13 @@ class OfferDetails(generics.RetrieveUpdateAPIView):
 
         new_status = serializer.validated_data.get('status')
 
-        if old_status != 'ACCEPTED' and new_status == 'ACCEPTED':
+        if old_status != 'SOLD' and new_status == 'SOLD':
             instance.advert.active = False
             instance.advert.save()
             return Response({
                  'message': 'Offer accepted and advert deactivated.'},
                   status=status.HTTP_200_OK)
-        elif old_status == 'ACCEPTED' and new_status != 'ACCEPTED':
+        elif old_status == 'SOLD' and new_status != 'SOLD':
             raise MethodNotAllowed(method=request.method)
 
         return Response(serializer.data)
