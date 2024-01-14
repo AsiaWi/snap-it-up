@@ -58,6 +58,7 @@ class Advert(models.Model, HitCountMixin):
     categories = models.CharField(max_length=100,
                                   choices=CATEGORIES,
                                   default='Clothing')
+    location = models.CharField(max_length=100, blank=True)
 
     class Meta:
         ordering = ['-created_at', '-updated_at']
