@@ -16,7 +16,7 @@ class OfferCreate(generics.ListCreateAPIView):
     '''
     queryset = Offer.objects.all()
     serializer_class = OfferListSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(buyer=self.request.user)
@@ -38,19 +38,24 @@ class OfferDetails(generics.RetrieveUpdateAPIView):
     def get_object(self):
         obj = super().get_object()
         user = self.request.user
-        if user != obj.buyer and user != obj.seller:
+        if user != obj.seller:
             raise PermissionDenied(
-                  "You do not have permission to access this offer.")
+                  "You do not have permission to manage this offer.")
         return obj
 
     def put(self, request, *args, **kwargs):
         instance = self.get_object()
+        if instance.status == 'SOLD':
+            return Response({
+                'message': 'The offer has already been accepted and the advert deactivated.'
+                }, status=status.HTTP_400_BAD_REQUEST)
+       
         old_status = instance.status
         serializer = self.get_serializer(instance,
                                          data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
-
+      
         new_status = serializer.validated_data.get('status')
 
         if old_status != 'SOLD' and new_status == 'SOLD':
@@ -59,7 +64,9 @@ class OfferDetails(generics.RetrieveUpdateAPIView):
             return Response({
                  'message': 'Offer accepted and advert deactivated.'},
                   status=status.HTTP_200_OK)
+      
         elif old_status == 'SOLD' and new_status != 'SOLD':
             raise MethodNotAllowed(method=request.method)
+            
 
         return Response(serializer.data)
