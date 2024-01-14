@@ -41,7 +41,8 @@ class AdvertsList(generics.ListCreateAPIView):
         'advert_title',
         'tags__name',
         'item_description',
-        'categories'
+        'categories',
+        'location'
      ]
 
     ordering_fields = [
