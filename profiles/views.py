@@ -1,30 +1,34 @@
 from .models import Profile
 from .serializers import ProfileSerializer
 from snap_it_up.permissions import IsOwnerOrReadOnly
-from rest_framework.views import APIView
+from rest_framework import generics, filters
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
-from django.db.models import Count
+from django.db.models import Count, Case, When, Value, FloatField, Sum, F
 
 
-class ProfileList(APIView):
+class ProfileList(generics.ListAPIView):
     '''
     List all profiles, profile creation handled by django signals
     return number of adverts and number of ratings received by user
+    Average rating here, for ordering purposes only, averate_rating in detail view is
+    more precise to display on users profile.
     '''
+    queryset = Profile.objects.annotate(
+        advert_count=Count('owner__advert', distinct=True),
+        rating_count=Count('owner__rated_user', distinct=True),
+        total_ratings=Sum('owner__rated_user__rating'),
+        average_rating=Case(
+            When(rating_count__gt=0, then=F('total_ratings') / F('rating_count')),
+        default=Value(0),
+    )
+)
 
-    def get(self, request):
-        profiles = Profile.objects.annotate(
-            advert_count=Count('owner__advert', distinct=True),
-            rating_count=Count('owner__rated_user', distinct=True)
-        )
-        serializer = ProfileSerializer(profiles, many=True,
-                                       context={'request': request})
-        for profile in profiles:
-            profile.average_rating = profile.calculate_average_rating()
-        return Response(serializer.data)
+    serializer_class = ProfileSerializer
+    filter_backends = [filters.OrderingFilter]
+    filterset_fields = ["-average_rating"]
 
 
 class ProfileDetails(RetrieveUpdateAPIView):

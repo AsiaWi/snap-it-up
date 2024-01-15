@@ -20,7 +20,7 @@ class Profile(models.Model):
         total_ratings = ratings.count()
         if total_ratings > 0:
             sum_of_ratings = sum([rating.rating for rating in ratings])
-            return sum_of_ratings / total_ratings
+            return round(sum_of_ratings / total_ratings, 2)
         return 'N/A'
 
     def __str__(self):
