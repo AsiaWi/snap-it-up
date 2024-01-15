@@ -6,6 +6,7 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.exceptions import MethodNotAllowed
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class OfferCreate(generics.ListCreateAPIView):
@@ -17,6 +18,8 @@ class OfferCreate(generics.ListCreateAPIView):
     queryset = Offer.objects.all()
     serializer_class = OfferListSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['advert']
 
     def perform_create(self, serializer):
         serializer.save(buyer=self.request.user)
@@ -24,8 +27,8 @@ class OfferCreate(generics.ListCreateAPIView):
 class OfferDetails(generics.RetrieveUpdateAPIView):
     '''
     Offer detail view, permissions to view only by
-    a seller or a buyer if logged in.
-    PUT method checks if offer status is 'ACCEPTED'
+    a seller if logged in.
+    PUT method checks if offer status is 'SOLD'
     if so- advert active status sets to false.
     Once offer accepted users can still exchange messages
     however unable to change the status.
