@@ -21,7 +21,6 @@ class OfferCreate(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(buyer=self.request.user)
 
-
 class OfferDetails(generics.RetrieveUpdateAPIView):
     '''
     Offer detail view, permissions to view only by
