@@ -2,6 +2,7 @@ from .models import Rating
 from .serializers import RatingSerializer
 from rest_framework import generics, permissions
 from snap_it_up.permissions import IsOwnerOrReadOnly
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class RatingList(generics.ListCreateAPIView):
@@ -11,6 +12,8 @@ class RatingList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['question']
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
