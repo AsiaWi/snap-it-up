@@ -2,7 +2,7 @@ from .models import Reply
 from .serializers import ReplySerializer, ReplyDetailsSerializer
 from rest_framework import generics, permissions
 from snap_it_up.permissions import IsOwnerOrReadOnly
-
+from django_filters.rest_framework import DjangoFilterBackend
 
 class ReplyListView(generics.ListCreateAPIView):
     '''
@@ -11,6 +11,8 @@ class ReplyListView(generics.ListCreateAPIView):
     serializer_class = ReplySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Reply.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['question']
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
