@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import Question
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from replies.serializers import ReplySerializer
-
+from replies.models import Reply
 
 class QuestionSerializer(serializers.ModelSerializer):
     '''
@@ -19,11 +19,9 @@ class QuestionSerializer(serializers.ModelSerializer):
                             source="owner.profile.id")
     profile_image = serializers.ReadOnlyField(
                     source="owner.profile.profile_image.url")
-    replies_count = serializers.SerializerMethodField()
+    replies_count = serializers.ReadOnlyField()
     replies = serializers.SerializerMethodField()
 
-    def get_replies_count(self, obj):
-        return obj.reply_set.count()
 
     def get_replies(self, obj):
         request = self.context.get('request')

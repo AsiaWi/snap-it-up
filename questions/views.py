@@ -3,6 +3,7 @@ from .serializers import QuestionSerializer, QuestionDetailsSerializer
 from rest_framework import generics, permissions
 from snap_it_up.permissions import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
+from django.db.models import Count
 
 class QuestionListView(generics.ListCreateAPIView):
     '''
@@ -10,7 +11,9 @@ class QuestionListView(generics.ListCreateAPIView):
     '''
     serializer_class = QuestionSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = Question.objects.all()
+    queryset = Question.objects.annotate(
+        replies_count=Count('reply', distinct=True),
+    )
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['advert']
 
