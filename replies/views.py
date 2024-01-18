@@ -25,4 +25,4 @@ class ReplyDetail(generics.RetrieveUpdateDestroyAPIView):
     '''
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Reply.objects.all()
-    serializer_class = ReplySerializer
+    serializer_class = ReplyDetailsSerializer
