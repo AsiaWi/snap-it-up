@@ -13,7 +13,7 @@ class RatingList(generics.ListCreateAPIView):
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['question']
+    filterset_fields = ['rated_user']
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
