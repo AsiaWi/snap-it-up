@@ -49,3 +49,13 @@ class RatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rating
         fields = '__all__'
+
+class RatingDetailsSerializer(RatingSerializer):
+    '''
+    Serializer for the question shown in detail view
+    '''
+    rated_user = serializers.ReadOnlyField(source='rated_user.id')
+
+    class Meta:
+        model = Rating
+        fields = '__all__'

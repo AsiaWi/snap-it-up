@@ -1,5 +1,5 @@
 from .models import Rating
-from .serializers import RatingSerializer
+from .serializers import RatingSerializer, RatingDetailsSerializer
 from rest_framework import generics, permissions
 from snap_it_up.permissions import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
@@ -26,4 +26,4 @@ class RatingDetails(generics.RetrieveUpdateDestroyAPIView):
     '''
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Rating.objects.all()
-    serializer_class = RatingSerializer
+    serializer_class = RatingDetailsSerializer
