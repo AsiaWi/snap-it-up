@@ -41,6 +41,7 @@ class Advert(models.Model, HitCountMixin):
     Listed in descending order whichever date is most recent: created/updated
     '''
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    contact_dets = models.CharField(max_length=150, blank=False)
     advert_title = models.CharField(max_length=50, blank=True)
     tags = TaggableManager(blank=True)
     image = models.ImageField(upload_to='images/', default='../upload.png_t8qvp6')
