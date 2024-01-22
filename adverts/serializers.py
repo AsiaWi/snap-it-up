@@ -5,6 +5,7 @@ from taggit.serializers import (TagListSerializerField,
 from save.models import Save
 from profiles.models import Profile
 from django.contrib.humanize.templatetags.humanize import naturaltime
+from rest_framework.exceptions import ValidationError
 
 
 class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
@@ -46,15 +47,15 @@ class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
     def get_is_owner(self, obj):
         request = self.context['request']
         return request.user == obj.owner
-
+    
     def validate(self, data):
         advert_title = data.get('advert_title')
-        tags = data.get('tags')
-        if not advert_title and not tags:
+        item_description = data.get('item_description')
+        if not advert_title and not item_description:
             raise ValidationError
             (
-             'At least one of the fields:advert title or tags must be provided'
-                )
+             "At least one of the fields:advert title or item_description must be provided"
+            )
         return data
 
     def get_page_views(self, obj):

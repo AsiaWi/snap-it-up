@@ -49,7 +49,7 @@ class Advert(models.Model, HitCountMixin):
                        blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    item_description = models.TextField(blank=False, null=False)
+    item_description = models.TextField(blank=True)
     payment_options = models.CharField(max_length=20, choices=PAYMENT_OPTIONS,
                                        default='Cash or Paypal')
     shippment_options = models.CharField(max_length=50,
@@ -59,7 +59,7 @@ class Advert(models.Model, HitCountMixin):
     categories = models.CharField(max_length=100,
                                   choices=CATEGORIES,
                                   default='Clothing')
-    location = models.CharField(max_length=100, blank=True)
+    location = models.CharField(max_length=100, blank=False)
 
     class Meta:
         ordering = ['-created_at', '-updated_at']
