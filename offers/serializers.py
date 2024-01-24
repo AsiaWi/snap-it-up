@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Offer
 from django.contrib.humanize.templatetags.humanize import naturaltime
-
+from .models import OFFER_STATUS
 
 class OfferSerializer(serializers.ModelSerializer):
     '''
@@ -18,7 +18,7 @@ class OfferSerializer(serializers.ModelSerializer):
                               source="buyer.profile.id")
     profile_image = serializers.ReadOnlyField(
                     source="buyer.profile.profile_image.url")
-
+    status = serializers.ReadOnlyField()
     def get_seller(self, obj):
         return obj.advert.owner.username
 
@@ -32,3 +32,15 @@ class OfferSerializer(serializers.ModelSerializer):
         model = Offer
         fields = '__all__'
 
+class OfferDetailSerializer(OfferSerializer):
+    '''
+    OfferListSerializer with OfferSerializer passed in
+    Overriden displayed serialized fields, excluded message
+    field in list view to allow users privately share personal
+    details once transaction is accepted
+    '''
+    status = serializers.ChoiceField(choices=OFFER_STATUS)
+
+    class Meta:
+        model = Offer
+        exclude = ['amount']

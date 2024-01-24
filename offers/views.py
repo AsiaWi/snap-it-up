@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
 from .models import Advert, Offer
-from .serializers import OfferSerializer
+from .serializers import OfferSerializer, OfferDetailSerializer
 from rest_framework.exceptions import PermissionDenied
 from rest_framework import status
 from rest_framework.response import Response
@@ -34,7 +34,7 @@ class OfferDetails(generics.RetrieveUpdateAPIView):
     however unable to change the status.
     '''
     queryset = Offer.objects.all()
-    serializer_class = OfferSerializer
+    serializer_class = OfferDetailSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_object(self):

@@ -285,7 +285,6 @@ Questions have been ordered in descending order so that the newest questions are
 
 Once user is logged in, form to submit a question becomes available. Once submitted, user will see their question as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access advert detail view where if authorised (ie. questions 'is_owner' field =true) they will be able to edit/delete the advert. The advert field has been set to read only in detail view to avoid repetition when editing.
 
-
 #### Replies
 
  `As a BUYER I can VIEW REPLIES LIST TO MY QUESTION BELOW THE QUESTION so that CLARIFY MY CONCERNS`
@@ -314,6 +313,37 @@ Replies have been ordered in descending order so that the newest questions are a
 
 Once user is logged in, form to submit the reply becomes available. Once submitted, user will see their reply as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access advert detail view where if authorised (ie. questions 'is_owner' field =true) they will be able to edit/delete the advert. The question field has been set to read only in detail view to avoid repetition when editing.
 
+#### Offers
+
+ `As a USER I can SEE ALL PREVIOUSLY MADE OFFERS so that I DON'T WASTE MY TIME MAKING THE SAME OFFERS SELLER ALREADY WASN'T HAPPY WITH`
+
+The offers list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/offers/
+
+![API_OFFERS_VIEW](https://res.cloudinary.com/dmod5eglu/image/upload/v1706129810/API_OFFERS_VIEW_hl97ex.png)
+
+To see fields included in the model see [Database Design](#database-design) 
+
+PLEASE NOTE `MESSAGE` FIELD HAS BEEN DELETED FROM OFFER MODEL SINCE THE DATABASE DIAGRAM HAS BEEN ADDED TO README
+
+Additional fields added with the help of serializer to JSON data:
+
+ - created_by_profile_user
+ - profile_image
+
+`As a LOGGED IN USER I can MAKE AN OFFER TO A SELLER so that I CAN PURCHASE THE ITEM`
+
+`naturaltime` has been implemented to updated_at and created_at for more human friendly timestap. This allows users to easily see when message has been posted.
+
+Filtering has been implemented to:
+- Filter backend
+  - By advert so that offers can be displayed under correct advert on front end.
+Offers have been ordered in descending order so that the newest offers are at the top as most up to date.
+
+`As a SELLER I can ACCEPT OR REJECT AN OFFER RECEIVED so that I CAN SELL AN ITEM AT PRICE I FIND ACCEPTABLE`
+
+``As a SELLER I can MARK AN OFFER AS SOLD so that IT'S CLEAR WHICH OFFER WENT THROUGH``
+
+Once user is logged in, form to submit the offer becomes available. Once submitted, user will see their offer as an additional object to the list view, status field is set to pending as default. If user uses the id from the object and follows current URL with `/id` they will receive an error to say they are not authorised to manage the offer. This is because only seller will have an access to detail view so that they can change status of the offer to either accepted or rejected and then again if purchase goes through they can go back and change status to sold which will also set related adverts 'active' field to false( This is mostly with intention of setting styling on front end to show the item has been sold without seller having to delete the item)
 
 
 
