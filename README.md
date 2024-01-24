@@ -1,110 +1,174 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Snap.it.up
 
-Welcome AsiaWi,
+Please note, this README is for backend database of a full stack application. For details on front-end please visit this link: [FRONT-END REPO](https://github.com/AsiaWi/snap-it-up-frontend/), and if you click [HERE](https://snap-it-up-frontend-0a24e912efd8.herokuapp.com/), you can see live full stack deployed website.
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+This API provides a backend database to allow all [this](#site-goals) functionality. You can view the [API here](https://snap-it-up-25ef84f951df.herokuapp.com/). To view it in a nicer format install a JSON extension like [this one](https://chromewebstore.google.com/detail/jsonvue/chklaanhfefbnpoihckbnefhakgolnmc) if you're using Chrome.
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
+![mockup](docs/readme_img/mockup_techsini_screenshot.png)
 
-## Gitpod Reminders
+## Table of Contents
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+- [Snap.it.up](#Snap-.-it-.-up)
+  - [Table of Contents](#table-of-contents)
+- [User Experience Design](#user-experience-design)
+  - [The Strategy Plane](#the-strategy-plane)
+    - [Site Goals](#site-goals)
+    - [Agile Planning](#agile-planning)
+      - [Epics](#epics)
+      - [User Stories](#user-stories)
+  - [The Structure Plane](#the-structure-plane)
+    - [Features](#features)
+    - [Features Left To Implement](#features-left-to-implement)
+  - [The Skeleton Plane](#the-skeleton-plane)
+    - [Database Design](#database-design)
+- [Technolgies](#technolgies)
+  - [Tools and Technologies](#tools-and-technologies)
+  - [Imports](#imports)
+    - [Python Packages](#internal-packages)
+    - [External Packages](#external-packages)
+- [Testing](#testing)
+  - [Validator Testing](#validator-testing)
+    - [Python](#python)
+  - [Manual Testing](#manual-testing)
+    - [Functional Testing](#functional-testing)
+      - [Negative Testing](#negative-testing)
+  - [Automatic Testing](#automatic-testing)
+    - [Unit Tests](#unit-tests)
+- [Bugs](#bugs)
+- [Deployment](#deployment)
+    - [Version Control](#version-control)
+    - [Deploying in Heroku](#deploying-in-heroku)
+    - [Cloning the Repository](#cloning-the-repository)
+    - [Forking](#forking)
+- [Credits](#credits)
 
-`python3 -m http.server`
 
-A blue button should appear to click: _Make Public_,
+# User Experience Design
 
-Another blue button should appear to click: _Open Browser_.
+## The Strategy Plane
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+### Site Goals
 
-A blue button should appear to click: _Make Public_,
+Snap.it.up is an application developed for users to be able to sell their unwanted items. Anyone can register, sign in and create an advert post to sell whatever they no longer need in their life. The website has been designed to be user friendly and make the experience smooth, pleasant and easy. Users can ask questions on the product if unsure of anything, they can conversate on the subject if needed by replying to the question, this way the whole conversation is in one place and users don't have to scroll to find their responses. Once buyers want to purchase an item they can make an offer by submitting a simple form. Seller can then either accept or reject an offer. Seller can accept more than one offer to ensure that item doesn't get stuck unsold if user who's offer has been accepted doesn't contact the seller. This means that whoever acts the fastest and contacts the seller to arrange collection/delivery will get the item. Once the item has been collected and paid for- seller can mark the offer as sold which will change the styling of the advert to show the advert is no longer active and has been sold. This will prevent users from wasting their time on submitting offers as they will know the item is gone. This won't however stop users to interact within the advert- ask questions etc. So if they want to ask if the item will ever be available again etc. they can. The inactive advert styling will also ensure that the seller doesn't have to delete the advert to avoid unwanted contact from users. This will create and show nice history for the seller which will help other users understand how well the seller is doing.
+Additionaly users can also search and filter adverts list to easily find what they are looking for, making their experience smooth and enjoyable. Title, tags, location and item description has been included so that users can search by keywords and have bigger possibility of finding something they are looking for (ie. seller included specific key word only within the item description but not in the title). Filtering has been applied to allow users to select a category from drop down box returning a list of items within that category
 
-Another blue button should appear to click: _Open Browser_.
+### Agile Planning
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+The project was developed using agile methodology. Small features have been assigned to 10 EPICS. This was then divided into 4 sprints.
+Labels have been used to mark which features the project : 'must have', 'should have', 'could have'. This was done so that I create a MVP in the time I have and only focus on the 'should have's' or 'could have's' if time allows. 
+Each user story was closed if all acceptance criteria have been met.
 
-To log into the Heroku toolbelt CLI:
+Project board has been used to help me with the process [PROJECT BOARD-link](https://github.com/users/AsiaWi/projects/5/views/1?layout=board)
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+![PROJECT BOARD](https://res.cloudinary.com/dmod5eglu/image/upload/v1706064749/project-board_ldpjbh.png)
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+I have created two additional labels to indicate which user stories required backend work **API** and which ones required front-end work **React**. The stories that have both labels will be discussed in each README.
+Instead of creating seperate 'developer stories' I created one project workflow that structured my work and allowed me to plan it in less chaotic way.
 
-------
+- API USER STORIES SPRINT1
+![API_SPRINT1](https://res.cloudinary.com/dmod5eglu/image/upload/v1706068617/API-SPRINT1_gh6z6u.png)
 
-## Release History
+- API USER STORIES SPRINT2
+![API_SPRINT2](https://res.cloudinary.com/dmod5eglu/image/upload/v1706068622/API-SPRINT-2_bqct0v.png)
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+- API USER STORIES SPRINT3
+![API_SPRINT3](https://res.cloudinary.com/dmod5eglu/image/upload/v1706068626/API-SPRINT3_wugxrh.png)
 
-**September 20 2023:** Update Python version to 3.9.17.
+- API USER STORIES SPRINT4
+![API_SPRINT4](https://res.cloudinary.com/dmod5eglu/image/upload/v1706068628/API-SPRINT4_ahurxv.png)
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+#### Epics
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+- 1-Project setup:
+   This was a first task without it I wouldn't be able to continue with any of the project features so it was necessary to set up a basic structure of the project following the user stories included in this Epic.
+- 2-Authentication/navigation:
+   This milestone was needed to allow users to actually use the page so that the page is interactive
+- 3-Advert:
+   Includes all features enabling the CRUD functionality for the user
+- 4-Adverts page:
+   This improves users journey throughout the page and makes it a smooth experience for everyone.
+- 5-Questions:
+   Includes all features enabling the CRUD functionality for the user
+- 6-Replies: 
+   Includes all features enabling the CRUD functionality for the user
+- 7-Offers:
+   Includes all features enabling the CRUD functionality for the user 
+- 8-Profile:
+   Allows user to CRE own details. Allows other users to find out more about user.
+- 9-Rating:
+  Includes all features enabling the CRUD functionality for the user
+- 10-Documentation and deployment: 
+   Absolutely necessary step to make sure the page is deployed with no erros and allows anyone access to all features.Needed to document the project
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+#### User Stories
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+ Each EPIC contains user stories allowing me to build up the project with small features:
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+- EPIC 1- Project setup
+  - `As a DEVELOPER I need to SET UP THE PROJECT so that i CAN BUILD THE PAGE`
+     - Install Django Rest API
+     - Create project
+     - Add first main app
+     - Add env.py file
+     - Add Procfile
+     - Install supporting libraries
+     - image database - Cloudinary
+     - database - ElephantSQL
+     - Settings.py edited to notify django of the supporting libraries
+     - Project deployed to Heroku
+  - `As a DEVELOPER I need to CONNECT THE PROJECT TO CLOUD TO STORE IMAGES so that USERS CAN UPLOAD IMAGES`
+- EPIC 2-Authentication/navigation:
+  - `As a USER I can REGISTER AND SIGN IN so that I CAN ACCESS CONTENT WHICH REQUIRES TO BE AUTHORISED`
+     - install dj-rest-auth add to settings.py
+     - install simplejwt library
+- EPIC 3-Advert:
+  - `As a LOGGED IN USER I can ADD AN ADVERT so that I CAN SHARE IT WITH OTHERS AND SELL ITEMS`
+  - `As a USER I can VIEW THE ADVERT POSTS DETAILS so that I LEARN MORE ABOUT IT`
+  - `As a LOGGED IN USER I can SAVE AN ADVERT BY CLICKING ON SAVE ICON so that I CAN VIEW IT AGAINST OTHER ITEMS I SAVED/ KEEP AN EYE ON THE ITEM`
+  - `As a SELLER I can EDIT MY ADVERTS so that I CAN UPDATE IT OR CORRECT IT IF NEEDED`
+  - `As a LOGGED IN USER I can DELETE MY OWNS POSTS so that I CAN KEEP MY ACCOUNT UP TO DATE`
+  - `As a USER I can VIEW A POSTED ADVERT so that I CAN FIND OUT ALL DETAILS ABOUT AN ITEM AND SELLER`
+  - `As a USER I can SEE ADVERT'S STATUS so that I KNOW IF ITEM IS AVAILABLE OR NOT`
+  - `As a USER I can SEE HOW MANY VIEWS EACH POST HAD so that I KNOW HOW POPULAR ARE DIFFERENT ITEMS WITHIN THE PAGE`
+  - `As a SELLER OR BUYER I can COMMUNICATE PRIVATELY WITH A BUYER/SELLER ONCE OFFER HAS BEEN ACCEPTED so that I CAN ARRANGE FURTHER DETAILS`
+- EPIC 4-Adverts page:
+  - `As a USER I can VIEW ALL ADVERTS AS A LIST STARTING WITH MOST RECENT ONES so that I CAN PICK UP ON THE NEWEST DEALS`
+  - `As a USER I can SEARCH ADVERTS BY ITEM LOCATION OR KEYWORD/TAG NAME so that I CAN FIND ITEMS THAT I'M INTERESTED IN`
+  - `As a USER I can VIEW ITEMS BY CATEGORY so that I CAN FIND ITEMS I NEED`
+  - `As a LOGGED IN USER I can SAVE ITEMS so that I CAN GET BACK TO ADVERTS I'M INTERESTED IN EASILY`
+  - `As a USER I can VIEW A LIST OF MOST SAVED ITEMS so that I CAN FIND BEST DEALS`
+- EPIC 5-Questions:
+  - `As a LOGGED IN USER I can ASK A QUESTION ABOUT AN ADVERT so that I CAN GET MORE INFORMATION BEFORE PURCHASE`
+  - `As a SELLER I want OTHER USERS TO SEE THE PREVIOUSLY ASKED QUESTIONS AND ANSWERS so that I DON'T HAVE TO ANSWER TO EVERYONE INDIVIDUALLY`
+  - `As a SELLER I can SEE A DATE WHEN QUESTION WAS ASKED so that I KNOW IF IT'S STILL RELEVANT OR URGENT`
+  - `As a QUESTION OWNER I can EDIT OR DELETE A QUESTION I ASKED so that I CAN CONTROL MY OUTPUT`
+- EPIC 6-Replies:
+  - `As a LOGGED IN USER I can REPLY TO QUESTIONS so that I CAN COMMUNICATE BACK WITH POTENTIAL BUYERS`
+  - `As a BUYER I can VIEW REPLIES LIST TO MY QUESTION BELOW THE QUESTION so that CLARIFY MY CONCERNS`
+  - `As a USER I can SEE WHEN SOMEONE REPLIED TO MY QUESTION so that I KNOW IF IT'S MOST RELEVANT`
+- EPIC 7-Offers:
+  - `As a USER I can SEE ALL PREVIOUSLY MADE OFFERS so that I DON'T WASTE MY TIME MAKING THE SAME OFFERS SELLER ALREADY WASN'T HAPPY WITH`
+  - `As a LOGGED IN USER I can MAKE AN OFFER TO A SELLER so that I CAN PURCHASE THE ITEM`
+  - `As a SELLER I can ACCEPT OR REJECT AN OFFER RECEIVED so that I CAN SELL AN ITEM AT PRICE I FIND ACCEPTABLE`
+  - `As a SELLER I can MARK AN OFFER AS SOLD so that IT'S CLEAR WHICH OFFER WENT THROUGH`
+- EPIC 8-Profile:
+  - `As a USER I can VIEW EVERYONES PROFILE DETAILS so that I CAN LEARN MORE ABOUT SELLERS/BUYERS:(how long they're active, number of adverts posted, feedback/rating)`
+  - `As a PROFILE OWNER I can EDIT MY PROFILE DETAILS so that I CAN KEEP IT UP TO DATE`
+  - `As a PROFILE OWNER I can UPDATE PASSWORD AND USERNAME so that I CAN KEEP MY PROFILE SAFE`
+- EPIC 9-Rating:
+  - `As a LOGGED IN USER I can LEAVE FEEDBACK FOR THE BUYER/SELLER so that OTHERS KNOW HOW RELIABLE THE USER IS`
+  - `As a LOGGED IN USER I can RATE A PROFILE ONCE I PURCHASED SOMETHING FROM THE SELLER so that OTHERS KNOW HOW RELIABLE THE SELLER IS`
+- EPIC 10-Documentation and deployment:
+  - `As a DEVELOPER I need to CREATE README FILE so that I CAN DOCUMENT THE PROCESS OF CREATING THE APPLICATION`
+  - `As a DEVELOPER I need to deploy both projects and link them together so that USERS CAN USE FULL STACK WEBSITE`
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+## The Structure Plane
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+### Features
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+All features have been implemented with user stories in mind 
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+#### Advert
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
-------
-
-## FAQ about the uptime script
-
-**Why have you added this script?**
-
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
-
-**How will this affect me?**
-
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
-
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
-
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
-
----
-
-Happy coding!
+`` As a LOGGED IN USER I can ADD AN ADVERT so that I CAN SHARE IT WITH OTHERS AND SELL ITEMS``
