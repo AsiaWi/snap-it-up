@@ -80,7 +80,7 @@ Instead of creating seperate 'developer stories' I created one project workflow 
 
 - API USER STORIES SPRINT4
 ![API_SPRINT4](https://res.cloudinary.com/dmod5eglu/image/upload/v1706068628/API-SPRINT4_ahurxv.png)
-
+1[API_SPRINT4_PART2](https://res.cloudinary.com/dmod5eglu/image/upload/v1706137454/API_SPRINT4_2_dhotwi.png)
 
 #### Epics
 
@@ -163,6 +163,8 @@ Instead of creating seperate 'developer stories' I created one project workflow 
 - EPIC 9-Rating:
   - `As a LOGGED IN USER I can LEAVE FEEDBACK FOR THE BUYER/SELLER so that OTHERS KNOW HOW RELIABLE THE USER IS`
   - `As a LOGGED IN USER I can RATE A PROFILE ONCE I PURCHASED SOMETHING FROM THE SELLER so that OTHERS KNOW HOW RELIABLE THE SELLER IS`
+  - `As a USER I can EDIT OR DELETE RATING I HAVE LEFT so that I CONTROL MY INPUT`
+  - `As a SELLER AND BUYER I can SEE WHEN RATINGS HAVE BEEN LEFT FOR USERS so that I KNOW IF IT'S SAFE TO USE THEM`
 - EPIC 10-Documentation and deployment:
   - `As a DEVELOPER I need to CREATE README FILE so that I CAN DOCUMENT THE PROCESS OF CREATING THE APPLICATION`
   - `As a DEVELOPER I need to deploy both projects and link them together so that USERS CAN USE FULL STACK WEBSITE`
@@ -344,6 +346,64 @@ Offers have been ordered in descending order so that the newest offers are at th
 ``As a SELLER I can MARK AN OFFER AS SOLD so that IT'S CLEAR WHICH OFFER WENT THROUGH``
 
 Once user is logged in, form to submit the offer becomes available. Once submitted, user will see their offer as an additional object to the list view, status field is set to pending as default. If user uses the id from the object and follows current URL with `/id` they will not have an edit option unless they are a 'seller'. This is because only seller will have an access to  change status of the offer to either accepted or rejected and then again if purchase goes through they can go back and change status to sold which will also set related adverts 'active' field to false( This is mostly with intention of setting styling on front end to show the item has been sold without seller having to delete the item). Fuctionality to delete has not been implemented intentionaly so that other potential buyers don't make the same offers and can see what seller isn't already happy with.
+
+#### Profile
+
+ As a USER I can VIEW EVERYONES PROFILE DETAILS so that I CAN LEARN MORE ABOUT SELLERS/BUYERS:(how long they're active, number of adverts posted, feedback/rating)`
+
+The profiles list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/profiles/
+
+![API_PROFILES_VIEW](https://res.cloudinary.com/dmod5eglu/image/upload/v1706135071/API_PROFILE_VIEW_xz5lrt.png)
+
+To see fields included in the model see [Database Design](#database-design) 
+
+Additional fields added with the help of serializer to JSON data:
+
+ - is_owner
+ - advert_count
+ - rating_count
+ - average_rating
+
+`naturaltime` has been implemented to created_at for more human friendly timestap. This allows users to easily see when message has been posted.
+
+Filtering has been implemented to:
+- Filter backend
+  - By '-average_rating" this has been done for front end purposes, to display highest rated profiles in side bar desktop view only.
+
+  `As a PROFILE OWNER I can EDIT MY PROFILE DETAILS so that I CAN KEEP IT UP TO DATE`
+
+  `As a PROFILE OWNER I can UPDATE PASSWORD AND USERNAME so that I CAN KEEP MY PROFILE SAFE`
+
+No option to create profile from list view as this is automatically done upon registration. If user uses the id from the profile object and follows current URL with `/id` they can access profile detail view where if authorised (ie. profiles 'is_owner' field =true) they will be able to edit the profile.
+
+#### Rating
+
+   `As a LOGGED IN USER I can LEAVE FEEDBACK FOR THE BUYER/SELLER so that OTHERS KNOW HOW RELIABLE THE USER IS`
+   `As a LOGGED IN USER I can RATE A PROFILE ONCE I PURCHASED SOMETHING FROM THE SELLER so that OTHERS KNOW HOW RELIABLE THE SELLER IS`
+
+The rating list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/ratings/
+
+![API_RATINGS_VIEW](https://res.cloudinary.com/dmod5eglu/image/upload/v1706137759/API_RATING_VIEW_vgsfz8.png)
+
+To see fields included in the model see [Database Design](#database-design) 
+
+Additional fields added with the help of serializer to JSON data:
+
+ - is_owner
+ - profile_image
+
+`As a SELLER AND BUYER I can SEE WHEN RATINGS HAVE BEEN LEFT FOR USERS so that I KNOW IF IT'S SAFE TO USE THEM`
+
+`naturaltime` has been implemented to updated_at and created_at for more human friendly timestap. This allows users to easily see when message has been posted.
+
+Filtering fields have been implemented to:
+- Filter backend
+  - By 'rated_user' so that ratings can be displayed against correct rated profile on front end.
+Ratings have been ordered in descending order so that the newest questions are at the top so users can hear about most recent experiences with the profile user.
+ 
+ `As a USER I can EDIT OR DELETE RATING I HAVE LEFT so that I CONTROL MY INPUT`
+
+Once user is logged in, form to submit a rating becomes available. Rating (star number submittion must be filled in and the feedback field is optional) Once submitted, user will see their rating as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access rating detail view where if authorised (ie. ratings 'is_owner' field =true) they will be able to edit/delete the rating. The rated_user field has been set to read only in detail view to avoid repetition when editing.
 
 
 
