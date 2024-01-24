@@ -33,13 +33,13 @@ class OfferSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class OfferListSerializer(OfferSerializer):
-    '''
-    OfferListSerializer with OfferSerializer passed in
-    Overriden displayed serialized fields, excluded message
-    field in list view to allow users privately share personal
-    details once transaction is accepted
-    '''
-    class Meta:
-        model = Offer
-        exclude = ['message']
+# class OfferListSerializer(OfferSerializer):
+#     '''
+#     OfferListSerializer with OfferSerializer passed in
+#     Overriden displayed serialized fields, excluded message
+#     field in list view to allow users privately share personal
+#     details once transaction is accepted
+#     '''
+#     class Meta:
+#         model = Offer
+#         exclude = ['message']

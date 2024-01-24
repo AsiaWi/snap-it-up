@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
 from .models import Advert, Offer
-from .serializers import OfferSerializer, OfferListSerializer
+from .serializers import OfferSerializer
 from rest_framework.exceptions import PermissionDenied
 from rest_framework import status
 from rest_framework.response import Response
@@ -16,7 +16,7 @@ class OfferCreate(generics.ListCreateAPIView):
     Permissions checked- available for auth users only
     '''
     queryset = Offer.objects.all()
-    serializer_class = OfferListSerializer
+    serializer_class = OfferSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['advert']
