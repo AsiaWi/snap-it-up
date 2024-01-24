@@ -167,6 +167,82 @@ Instead of creating seperate 'developer stories' I created one project workflow 
   - `As a DEVELOPER I need to CREATE README FILE so that I CAN DOCUMENT THE PROCESS OF CREATING THE APPLICATION`
   - `As a DEVELOPER I need to deploy both projects and link them together so that USERS CAN USE FULL STACK WEBSITE`
 
+## The Structure Plane
+
+### Features
+
+#### Homepage
+
+You will see a welcome message, please see the features below where links to all the existing features will be provided
+
+![API-HOME](https://res.cloudinary.com/dmod5eglu/image/upload/v1706113749/API_HOME_rirw05.png)
+
+All features have been implemented with user stories in mind 
+
+#### Advert
+
+- This is a main feature without which the page would not exists, it provides meaning to the app
+
+`As a USER I can VIEW ALL ADVERTS AS A LIST STARTING WITH MOST RECENT ONES so that I CAN PICK UP ON THE NEWEST DEALS`
+
+The advert list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/adverts/
+
+![ADVERTS_VIEW](https://res.cloudinary.com/dmod5eglu/image/upload/v1706069800/API_ADVERTS_VIEW_daw2e8.png)
+
+To see fields included in the model see [Database Design](#database-design) 
+
+Additional fields added with the help of serializer to JSON data:
+
+ - is_owner
+ - profile_id
+ - profile_image
+
+ `As a USER I can SEE HOW MANY VIEWS EACH POST HAD so that I KNOW HOW POPULAR ARE DIFFERENT ITEMS WITHIN THE PAGE`
+ - page_views
+
+ `As a LOGGED IN USER I can SAVE ITEMS so that I CAN GET BACK TO ADVERTS I'M INTERESTED IN EASILY`
+ - save_id
+ - profile_location
+ - save_count
+
+ `As a USER I can SEE ADVERT'S STATUS so that I KNOW IF ITEM IS AVAILABLE OR NOT`
+ - active field from model has been set as read only so that the status can get automaticaly change when user sets offer to SOLD.
+ - tags have been serialized with TagListSerializerField
+
+Filtering fields have been implemented to:
+- Search
+
+`As a USER I can SEARCH ADVERTS BY ITEM LOCATION OR KEYWORD/TAG NAME so that I CAN FIND ITEMS THAT I'M INTERESTED IN`
+`As a USER I can VIEW ITEMS BY CATEGORY so that I CAN FIND ITEMS I NEED`
+  - By advert_title, tags, item_description, categories, location.
+Wide range of search fields has been added that page user has more of a chance of finding something they like with keywords.
+- Filter
+
+`As a LOGGED IN USER I can SAVE AN ADVERT BY CLICKING ON SAVE ICON so that I CAN VIEW IT AGAINST OTHER ITEMS I SAVED/ KEEP AN EYE ON THE ITEM`
+The saved items list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/saved/
+(if user is logged it they can see a form to save an advert. The object will show within a list view. To view the saved item simply follow the URL with the id of the object you can see in the list view)
+
+  - Adverts that have been saved by user to allow users to view a list of adverts they have saved by them as a list 
+  - Adverts that have been posted by user so that users can view a list of their own posts only for easy access.
+- Order 
+
+ `As a USER I can VIEW A LIST OF MOST SAVED ITEMS so that I CAN FIND BEST DEALS`
+
+  - By save_count, price, created_by, updated_by
+To allow ordering of the advert list. 
+ 
+`As a LOGGED IN USER I can ADD AN ADVERT so that I CAN SHARE IT WITH OTHERS AND SELL ITEMS`
+
+`As a USER I can VIEW THE ADVERT POSTS DETAILS so that I LEARN MORE ABOUT IT`
+
+`As a SELLER I can EDIT MY ADVERTS so that I CAN UPDATE IT OR CORRECT IT IF NEEDED`
+
+`As a LOGGED IN USER I can DELETE MY OWNS POSTS so that I CAN KEEP MY ACCOUNT UP TO DATE`
+
+Once user is logged in, form to submit an advert becomes available. Once submitted, user will see their ad as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access advert detail view where if authorised (ie. adverts 'is_owner' field =true) they will be able to edit/delete the advert.
+
+
+
 
 ## The Skeleton Plane
 
