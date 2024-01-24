@@ -199,8 +199,6 @@ Additional fields added with the help of serializer to JSON data:
 
  `As a USER I can SEE HOW MANY VIEWS EACH POST HAD so that I KNOW HOW POPULAR ARE DIFFERENT ITEMS WITHIN THE PAGE`
  - page_views
-
- `As a LOGGED IN USER I can SAVE ITEMS so that I CAN GET BACK TO ADVERTS I'M INTERESTED IN EASILY`
  - save_id
  - profile_location
  - save_count
@@ -217,17 +215,11 @@ Filtering fields have been implemented to:
   - By advert_title, tags, item_description, categories, location.
 Wide range of search fields has been added that page user has more of a chance of finding something they like with keywords.
 - Filter
-
-`As a LOGGED IN USER I can SAVE AN ADVERT BY CLICKING ON SAVE ICON so that I CAN VIEW IT AGAINST OTHER ITEMS I SAVED/ KEEP AN EYE ON THE ITEM`
-The saved items list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/saved/
-(if user is logged it they can see a form to save an advert. The object will show within a list view. To view the saved item simply follow the URL with the id of the object you can see in the list view)
-
   - Adverts that have been saved by user to allow users to view a list of adverts they have saved by them as a list 
   - Adverts that have been posted by user so that users can view a list of their own posts only for easy access.
 - Order 
 
  `As a USER I can VIEW A LIST OF MOST SAVED ITEMS so that I CAN FIND BEST DEALS`
-
   - By save_count, price, created_by, updated_by
 To allow ordering of the advert list. 
  
@@ -241,6 +233,25 @@ To allow ordering of the advert list.
 
 Once user is logged in, form to submit an advert becomes available. Once submitted, user will see their ad as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access advert detail view where if authorised (ie. adverts 'is_owner' field =true) they will be able to edit/delete the advert.
 
+#### Save
+
+ `As a LOGGED IN USER I can SAVE AN ADVERT BY CLICKING ON SAVE ICON so that I CAN VIEW IT AGAINST OTHER ITEMS I SAVED/ KEEP AN EYE ON THE ITEM`
+
+The saved items list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/saved/
+
+![SAVED_ITEMS_VIEW](https://res.cloudinary.com/dmod5eglu/image/upload/v1706126806/API_SAVED_ITEMS_VIEW_xnqews.png)
+
+To see fields included in the model see [Database Design](#database-design) 
+
+Serializer:
+
+ - owner field from model set to read only so that user can click on the item as it get's their username
+
+The unique together Meta class ensures that user can save specific item only once and doesn't store duplicates in their saved items list
+ 
+``As a LOGGED IN USER I can SAVE ITEMS so that I CAN GET BACK TO ADVERTS I'M INTERESTED IN EASILY`
+
+Once user is logged in, form to save advert becomes available. Once submitted, user will see their ad as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access saved object detail view where if authorised (ie. adverts 'owner' field =true) they will be able to edit/delete the save.
 
 
 
