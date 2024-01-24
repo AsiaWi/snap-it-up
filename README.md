@@ -166,3 +166,23 @@ Instead of creating seperate 'developer stories' I created one project workflow 
 - EPIC 10-Documentation and deployment:
   - `As a DEVELOPER I need to CREATE README FILE so that I CAN DOCUMENT THE PROCESS OF CREATING THE APPLICATION`
   - `As a DEVELOPER I need to deploy both projects and link them together so that USERS CAN USE FULL STACK WEBSITE`
+
+
+## The Skeleton Plane
+
+### Database design
+
+![entity_relationship_diagram](https://res.cloudinary.com/dmod5eglu/image/upload/v1706121326/ER_DIAGRAM_bazv82.png)
+
+- The ER Diagram has been generated with DBeaver. 
+- The diagram shows relationships between models
+  - The user model supports pretty much all existing features and allows user to interact with posts when logged in with the help of foreign key
+  - Advert related to user model allowing users to perform CRUD funcionality
+  - Questions relate to advert model and user model allowing users to send queries in regards to specific add.
+  - Replies relate to questions and user model, allowing users to answer to specific question and keep track of conversation
+  - Rating model relates to User and checks logged in user (owner of rating) and rated user with the help of foreign key
+  - Offers relate to user model and advert, with the help of foreign key offers can be placed on specific advert, buyer_id helps to allocate offer to owner and seller_id allows seller to change offer status
+  - Save model related to advert and user to allow users to save favourite ads.
+  - Profile related to User model
+  - Hitcount model has been implemented to count page views for each advert, hit count relates to User model saving User ID each active session
+  - Taggit related to content type and taggit_tag allowing me to implement function to add tags for users
