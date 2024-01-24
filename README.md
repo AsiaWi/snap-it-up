@@ -23,8 +23,7 @@ For details on front-end please visit this link: [FRONT-END REPO](https://github
 - [Technolgies](#technolgies)
   - [Tools and Technologies](#tools-and-technologies)
   - [Imports](#imports)
-    - [Python Packages](#internal-packages)
-    - [External Packages](#external-packages)
+    - [Installed Packages](#installed-packages)
 - [Testing](#testing)
   - [Validator Testing](#validator-testing)
     - [Python](#python)
@@ -63,7 +62,9 @@ Project board has been used to help me with the process [PROJECT BOARD-link](htt
 
 I have created two additional labels to indicate which user stories required backend work:
   - **API** 
-and which ones required front-end work 
+
+and which ones required front-end work:
+
   - **React**. 
   
 The stories that have both labels will be discussed in each README.
@@ -80,7 +81,7 @@ Instead of creating seperate 'developer stories' I created one project workflow 
 
 - API USER STORIES SPRINT4
 ![API_SPRINT4](https://res.cloudinary.com/dmod5eglu/image/upload/v1706068628/API-SPRINT4_ahurxv.png)
-1[API_SPRINT4_PART2](https://res.cloudinary.com/dmod5eglu/image/upload/v1706137454/API_SPRINT4_2_dhotwi.png)
+![API_SPRINT4_PART2](https://res.cloudinary.com/dmod5eglu/image/upload/v1706137454/API_SPRINT4_2_dhotwi.png)
 
 #### Epics
 
@@ -111,21 +112,10 @@ Instead of creating seperate 'developer stories' I created one project workflow 
 
 - EPIC 1- Project setup
   - `As a DEVELOPER I need to SET UP THE PROJECT so that i CAN BUILD THE PAGE`
-     - Install Django Rest API
-     - Create project
-     - Add first main app
-     - Add env.py file
-     - Add Procfile
-     - Install supporting libraries
-     - image database - Cloudinary
-     - database - ElephantSQL
-     - Settings.py edited to notify django of the supporting libraries
-     - Project deployed to Heroku
+
   - `As a DEVELOPER I need to CONNECT THE PROJECT TO CLOUD TO STORE IMAGES so that USERS CAN UPLOAD IMAGES`
 - EPIC 2-Authentication/navigation:
   - `As a USER I can REGISTER AND SIGN IN so that I CAN ACCESS CONTENT WHICH REQUIRES TO BE AUTHORISED`
-     - install dj-rest-auth add to settings.py
-     - install simplejwt library
 - EPIC 3-Advert:
   - `As a LOGGED IN USER I can ADD AN ADVERT so that I CAN SHARE IT WITH OTHERS AND SELL ITEMS`
   - `As a USER I can VIEW THE ADVERT POSTS DETAILS so that I LEARN MORE ABOUT IT`
@@ -405,8 +395,6 @@ Ratings have been ordered in descending order so that the newest questions are a
 
 Once user is logged in, form to submit a rating becomes available. Rating (star number submittion must be filled in and the feedback field is optional) Once submitted, user will see their rating as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access rating detail view where if authorised (ie. ratings 'is_owner' field =true) they will be able to edit/delete the rating. The rated_user field has been set to read only in detail view to avoid repetition when editing.
 
-
-
 ## The Skeleton Plane
 
 ### Database design
@@ -425,3 +413,46 @@ Once user is logged in, form to submit a rating becomes available. Rating (star 
   - Profile related to User model
   - Hitcount model has been implemented to count page views for each advert, hit count relates to User model saving User ID each active session
   - Taggit related to content type and taggit_tag allowing me to implement function to add tags for users
+
+## Technologies
+
+### Tools and technologies
+
+* Visual Studio Code - used to develop the website
+* Github - used to host source code and deploy on Github Pages
+* Git- used to commit and push code 
+* Python - used as the main language to code the logic of the page
+* djangorestframework==3.14.0 - framework used
+* Heroku - to deploy the app 
+* [dbeaver](https://dbeaver.com/) - used to generate the ER Diagram
+
+### Imports
+
+
+#### Installed packages
+
+* cloudinary==1.37.0 - media managment cloudinary
+* dj-database-url==0.5.0  - Django utility allows to utilize DATABASE_URL environment variable to configure Django application
+* dj-rest-auth==2.1.9  - Drop-in API endpoints for handling authentication securely in Django Rest Framework. Works especially well with SPAs (e.g., React, Vue, Angular), and Mobile applications.
+* django-allauth==0.44.0  - authentication in django allowing user to sign- up/ sign-in/log-out
+* requests-oauthlib==1.3.1 - installed with the allauth above
+* django-cloudinary-storage==0.3.0 - cloudinary storage
+* psycopg2==2.9.9 - additional dependency needed to support PostgreSQL when deployed to heroku 
+* Pillow==10.1.0  - image processing capibilities
+* asgiref==3.7.2  - ASGI is a standard for Python asynchronous web apps and servers to communicate with each other, and positioned as an asynchronous successor to WSGI. 
+* django-cors-headers==4.3.1  - A Django App that adds Cross-Origin Resource Sharing (CORS) headers to responses. This allows in-browser requests to your Django application from other origins.
+* django-filter==23.5 - installed to use djangofilterbackend
+* django-hitcount==1.3.5 - installed to implement page views for adverts
+* django-humanize==0.1.2 and humanize==4.9.0 - installed to use naturaltime
+* django-money==3.4.1 and py-moneyed==3.0  - used to insert currency
+* django-taggit==5.0.1 - used to add tags to adverts
+* djangorestframework-simplejwt==5.3.1  - JSON Web Token authentication plugin for DRF.
+
+Installed as dependencies with another packages:
+* gunicorn==21.2.0
+* oauthlib==3.2.2
+* PyJWT==2.8.0
+* python3-openid==3.2.0
+* sqlparse==0.4.4
+* urllib3==1.26.16
+* pytz==2023.3.post1
