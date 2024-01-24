@@ -1,10 +1,9 @@
 # Snap.it.up
 
-Please note, this README is for backend database of a full stack application. For details on front-end please visit this link: [FRONT-END REPO](https://github.com/AsiaWi/snap-it-up-frontend/), and if you click [HERE](https://snap-it-up-frontend-0a24e912efd8.herokuapp.com/), you can see live full stack deployed website.
+Please note, this README is for backend database of a full stack application. This API provides a backend database to allow all [this](#site-goals) functionality. You can view the [API here](https://snap-it-up-25ef84f951df.herokuapp.com/). To view it in a nicer format install a JSON extension like [this one](https://chromewebstore.google.com/detail/jsonvue/chklaanhfefbnpoihckbnefhakgolnmc) if you're using Chrome.
 
-This API provides a backend database to allow all [this](#site-goals) functionality. You can view the [API here](https://snap-it-up-25ef84f951df.herokuapp.com/). To view it in a nicer format install a JSON extension like [this one](https://chromewebstore.google.com/detail/jsonvue/chklaanhfefbnpoihckbnefhakgolnmc) if you're using Chrome.
 
-![mockup](docs/readme_img/mockup_techsini_screenshot.png)
+For details on front-end please visit this link: [FRONT-END REPO](https://github.com/AsiaWi/snap-it-up-frontend/), and if you click [HERE](https://snap-it-up-frontend-0a24e912efd8.herokuapp.com/), you can see live full stack deployed live website.
 
 ## Table of Contents
 
@@ -62,7 +61,12 @@ Project board has been used to help me with the process [PROJECT BOARD-link](htt
 
 ![PROJECT BOARD](https://res.cloudinary.com/dmod5eglu/image/upload/v1706064749/project-board_ldpjbh.png)
 
-I have created two additional labels to indicate which user stories required backend work **API** and which ones required front-end work **React**. The stories that have both labels will be discussed in each README.
+I have created two additional labels to indicate which user stories required backend work:
+  - **API** 
+and which ones required front-end work 
+  - **React**. 
+  
+The stories that have both labels will be discussed in each README.
 Instead of creating seperate 'developer stories' I created one project workflow that structured my work and allowed me to plan it in less chaotic way.
 
 - API USER STORIES SPRINT1
@@ -76,6 +80,7 @@ Instead of creating seperate 'developer stories' I created one project workflow 
 
 - API USER STORIES SPRINT4
 ![API_SPRINT4](https://res.cloudinary.com/dmod5eglu/image/upload/v1706068628/API-SPRINT4_ahurxv.png)
+
 
 #### Epics
 
@@ -161,14 +166,3 @@ Instead of creating seperate 'developer stories' I created one project workflow 
 - EPIC 10-Documentation and deployment:
   - `As a DEVELOPER I need to CREATE README FILE so that I CAN DOCUMENT THE PROCESS OF CREATING THE APPLICATION`
   - `As a DEVELOPER I need to deploy both projects and link them together so that USERS CAN USE FULL STACK WEBSITE`
-
-
-## The Structure Plane
-
-### Features
-
-All features have been implemented with user stories in mind 
-
-#### Advert
-
-`` As a LOGGED IN USER I can ADD AN ADVERT so that I CAN SHARE IT WITH OTHERS AND SELL ITEMS``
