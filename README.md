@@ -253,6 +253,37 @@ The unique together Meta class ensures that user can save specific item only onc
 
 Once user is logged in, form to save advert becomes available. Once submitted, user will see their ad as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access saved object detail view where if authorised (ie. adverts 'owner' field =true) they will be able to edit/delete the save.
 
+#### Questions
+
+`As a SELLER I want OTHER USERS TO SEE THE PREVIOUSLY ASKED QUESTIONS AND ANSWERS so that I DON'T HAVE TO ANSWER TO EVERYONE INDIVIDUALLY`
+
+The questions list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/questions/
+
+![API_QUESTIONS_VIEW](https://res.cloudinary.com/dmod5eglu/image/upload/v1706128036/api_questions_view_dcinee.png)
+
+To see fields included in the model see [Database Design](#database-design) 
+
+Additional fields added with the help of serializer to JSON data:
+
+ - is_owner
+ - asked_by_profile_user
+ - profile_image
+ - replies_count
+ - replies
+ Replies field has been added as I think it makes the experience much easier to see full conversation in one place.
+
+`As a SELLER I can SEE A DATE WHEN QUESTION WAS ASKED so that I KNOW IF IT'S STILL RELEVANT OR URGENT`
+`naturaltime` has been implemented to updated_at and created_at for more human friendly timestap. This allows users to easily see when message has been posted.
+
+Filtering fields have been implemented to:
+- Filter backend
+  - By advert so that questions can be displayed under correct advert on front end.
+Questions have been ordered in descending order so that the newest questions are at the top AND others easily see if anything needs attention
+ 
+ `As a LOGGED IN USER I can ASK A QUESTION ABOUT AN ADVERT so that I CAN GET MORE INFORMATION BEFORE PURCHASE`
+ `As a QUESTION OWNER I can EDIT OR DELETE A QUESTION I ASKED so that I CAN CONTROL MY OUTPUT`
+
+Once user is logged in, form to submit a question becomes available. Once submitted, user will see their ad as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access advert detail view where if authorised (ie. questions 'is_owner' field =true) they will be able to edit/delete the advert. The advert field has beed set to read only in detail view to avoid repetition.
 
 
 ## The Skeleton Plane
