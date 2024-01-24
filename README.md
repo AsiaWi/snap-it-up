@@ -278,12 +278,43 @@ Additional fields added with the help of serializer to JSON data:
 Filtering fields have been implemented to:
 - Filter backend
   - By advert so that questions can be displayed under correct advert on front end.
-Questions have been ordered in descending order so that the newest questions are at the top AND others easily see if anything needs attention
+Questions have been ordered in descending order so that the newest questions are at the top and others easily see if anything needs attention
  
  `As a LOGGED IN USER I can ASK A QUESTION ABOUT AN ADVERT so that I CAN GET MORE INFORMATION BEFORE PURCHASE`
  `As a QUESTION OWNER I can EDIT OR DELETE A QUESTION I ASKED so that I CAN CONTROL MY OUTPUT`
 
-Once user is logged in, form to submit a question becomes available. Once submitted, user will see their ad as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access advert detail view where if authorised (ie. questions 'is_owner' field =true) they will be able to edit/delete the advert. The advert field has beed set to read only in detail view to avoid repetition.
+Once user is logged in, form to submit a question becomes available. Once submitted, user will see their question as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access advert detail view where if authorised (ie. questions 'is_owner' field =true) they will be able to edit/delete the advert. The advert field has been set to read only in detail view to avoid repetition when editing.
+
+
+#### Replies
+
+ `As a BUYER I can VIEW REPLIES LIST TO MY QUESTION BELOW THE QUESTION so that CLARIFY MY CONCERNS`
+
+The replies list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/replies/
+
+![API_REPLIES_VIEW](https://res.cloudinary.com/dmod5eglu/image/upload/v1706129129/API_REPLIES_VIEW_t25qqe.png)
+
+To see fields included in the model see [Database Design](#database-design) 
+
+Additional fields added with the help of serializer to JSON data:
+
+ - is_owner
+ - created_by_profile_user
+ - profile_image
+
+`As a USER I can SEE WHEN SOMEONE REPLIED TO MY QUESTION so that I KNOW IF IT'S MOST RELEVANT`
+`naturaltime` has been implemented to updated_at and created_at for more human friendly timestap. This allows users to easily see when message has been posted.
+
+Filtering has been implemented to:
+- Filter backend
+  - By question so that replies can be displayed under correct question on front end.
+Replies have been ordered in descending order so that the newest questions are at the top and others easily see if anything needs attention
+ 
+ `As a LOGGED IN USER I can REPLY TO QUESTIONS so that I CAN COMMUNICATE BACK WITH POTENTIAL BUYERS`
+
+Once user is logged in, form to submit the reply becomes available. Once submitted, user will see their reply as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access advert detail view where if authorised (ie. questions 'is_owner' field =true) they will be able to edit/delete the advert. The question field has been set to read only in detail view to avoid repetition when editing.
+
+
 
 
 ## The Skeleton Plane
