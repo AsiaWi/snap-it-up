@@ -78,7 +78,7 @@ Instead of creating seperate 'developer stories' I created one project workflow 
 
 - API USER STORIES SPRINT3
 ![API_SPRINT3](https://res.cloudinary.com/dmod5eglu/image/upload/v1706068626/API-SPRINT3_wugxrh.png)
-
+![API_SPRINT3_PART2](https://res.cloudinary.com/dmod5eglu/image/upload/v1706194186/API_SPRINT3_PART2_l7zsb4.png)
 - API USER STORIES SPRINT4
 ![API_SPRINT4](https://res.cloudinary.com/dmod5eglu/image/upload/v1706068628/API-SPRINT4_ahurxv.png)
 ![API_SPRINT4_PART2](https://res.cloudinary.com/dmod5eglu/image/upload/v1706137454/API_SPRINT4_2_dhotwi.png)
@@ -140,6 +140,7 @@ Instead of creating seperate 'developer stories' I created one project workflow 
   - `As a LOGGED IN USER I can REPLY TO QUESTIONS so that I CAN COMMUNICATE BACK WITH POTENTIAL BUYERS`
   - `As a BUYER I can VIEW REPLIES LIST TO MY QUESTION BELOW THE QUESTION so that CLARIFY MY CONCERNS`
   - `As a USER I can SEE WHEN SOMEONE REPLIED TO MY QUESTION so that I KNOW IF IT'S MOST RELEVANT`
+  - `As a LOGGED IN USER I can EDIT/DELETE MY REPLY so that MANAGE MY INPUT`
 - EPIC 7-Offers:
   - `As a USER I can SEE ALL PREVIOUSLY MADE OFFERS so that I DON'T WASTE MY TIME MAKING THE SAME OFFERS SELLER ALREADY WASN'T HAPPY WITH`
   - `As a LOGGED IN USER I can MAKE AN OFFER TO A SELLER so that I CAN PURCHASE THE ITEM`
@@ -175,6 +176,8 @@ All features have been implemented with user stories in mind
 - This is a main feature without which the page would not exists, it provides meaning to the app
 
 `As a USER I can VIEW ALL ADVERTS AS A LIST STARTING WITH MOST RECENT ONES so that I CAN PICK UP ON THE NEWEST DEALS`
+
+`As a LOGGED IN USER I can ADD AN ADVERT so that I CAN SHARE IT WITH OTHERS AND SELL ITEMS`
 
 The advert list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/adverts/
 
@@ -221,8 +224,6 @@ Wide range of search fields has been added that page user has more of a chance o
 
   - By save_count, price, created_by, updated_by
 To allow ordering of the advert list. 
- 
-`As a LOGGED IN USER I can ADD AN ADVERT so that I CAN SHARE IT WITH OTHERS AND SELL ITEMS`
 
 `As a USER I can VIEW THE ADVERT POSTS DETAILS so that I LEARN MORE ABOUT IT`
 
@@ -241,6 +242,9 @@ Once user is logged in, form to submit an advert becomes available. Once submitt
 #### Save
 
  `As a LOGGED IN USER I can SAVE AN ADVERT BY CLICKING ON SAVE ICON so that I CAN VIEW IT AGAINST OTHER ITEMS I SAVED/ KEEP AN EYE ON THE ITEM`
+ ``As a LOGGED IN USER I can SAVE ITEMS so that I CAN GET BACK TO ADVERTS I'M INTERESTED IN EASILY`
+ (acceptance criteria:save item when logged in)
+
 
 The saved items list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/saved/
 
@@ -260,6 +264,7 @@ Serializer:
 The unique together Meta class ensures that user can save specific item only once and doesn't store duplicates in their saved items list
  
 ``As a LOGGED IN USER I can SAVE ITEMS so that I CAN GET BACK TO ADVERTS I'M INTERESTED IN EASILY`
+ (acceptance criteria:remove saved item when logged in)
 
       -Endpoint `/saved/int:pk/`
       -Methods:
@@ -270,6 +275,8 @@ Once user is logged in, form to save advert becomes available. Once submitted, u
 #### Questions
 
 `As a SELLER I want OTHER USERS TO SEE THE PREVIOUSLY ASKED QUESTIONS AND ANSWERS so that I DON'T HAVE TO ANSWER TO EVERYONE INDIVIDUALLY`
+
+ `As a LOGGED IN USER I can ASK A QUESTION ABOUT AN ADVERT so that I CAN GET MORE INFORMATION BEFORE PURCHASE`
 
 The questions list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/questions/
 
@@ -300,8 +307,6 @@ Filtering fields have been implemented to:
   - By advert so that questions can be displayed under correct advert on front end.
 Questions have been ordered in descending order so that the newest questions are at the top and others easily see if anything needs attention
  
- `As a LOGGED IN USER I can ASK A QUESTION ABOUT AN ADVERT so that I CAN GET MORE INFORMATION BEFORE PURCHASE`
-
  `As a QUESTION OWNER I can EDIT OR DELETE A QUESTION I ASKED so that I CAN CONTROL MY OUTPUT`
   
         -Endpoint `/questions/int:pk/`
@@ -310,11 +315,13 @@ Questions have been ordered in descending order so that the newest questions are
           `PUT`  used to edit question
           `DELETE` used to delete a question
 
-Once user is logged in, form to submit a question becomes available. Once submitted, user will see their question as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access advert detail view where if authorised (ie. questions 'is_owner' field =true) they will be able to edit/delete the advert. The advert field has been set to read only in detail view to avoid repetition when editing.
+Once user is logged in, form to submit a question becomes available. Once submitted, user will see their question as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access question detail view where if authorised (ie. questions 'is_owner' field =true) they will be able to edit/delete the object. The advert field has been set to read only in detail view to avoid repetition when editing.
 
 #### Replies
 
  `As a BUYER I can VIEW REPLIES LIST TO MY QUESTION BELOW THE QUESTION so that CLARIFY MY CONCERNS`
+
+  `As a LOGGED IN USER I can REPLY TO QUESTIONS so that I CAN COMMUNICATE BACK WITH POTENTIAL BUYERS`
 
 The replies list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/replies/
 
@@ -342,8 +349,6 @@ Filtering has been implemented to:
   - By question so that replies can be displayed under correct question on front end.
 Replies have been ordered in descending order so that the newest questions are at the top and others easily see if anything needs attention
  
- `As a LOGGED IN USER I can REPLY TO QUESTIONS so that I CAN COMMUNICATE BACK WITH POTENTIAL BUYERS`
-
  `As a LOGGED IN USER I can EDIT/DELETE MY REPLY so that MANAGE MY INPUT`
 
        -Endpoint `/replies/int:pk/`
@@ -352,7 +357,7 @@ Replies have been ordered in descending order so that the newest questions are a
         `PUT`  used to edit a reply
         `DELETE` used to delete a reply
 
-Once user is logged in, form to submit the reply becomes available. Once submitted, user will see their reply as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access advert detail view where if authorised (ie. questions 'is_owner' field =true) they will be able to edit/delete the advert. The question field has been set to read only in detail view to avoid repetition when editing.
+Once user is logged in, form to submit the reply becomes available. Once submitted, user will see their reply as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access reply detail view where if authorised (ie. reply 'is_owner' field =true) they will be able to edit/delete the object. The question field has been set to read only in detail view to avoid repetition when editing.
 
 #### Offers
 
@@ -394,11 +399,9 @@ Offers have been ordered in descending order so that the newest offers are at th
            `GET`  used to view offers
            `PUT` used to edit an offer (status)
           
-Once user is logged in, form to submit the offer becomes available. Once submitted, user will see their offer as an additional object to the list view, status field is set to pending as default. If user uses the id from the object and follows current URL with `/id` they will not have an edit option unless they are a 'seller'. This is because only seller will have an access to  change status of the offer to either accepted or rejected and then again if purchase goes through they can go back and change status to sold which will also set related adverts 'active' field to false( This is mostly with intention of setting styling on front end to show the item has been sold without seller having to delete the item). Fuctionality to delete has not been implemented intentionaly so that other potential buyers don't make the same offers and can see what seller isn't already happy with.
+Once user is logged in, form to submit the offer becomes available. Once submitted, user will see their offer as an additional object to the list view, status field is set to pending as default. If user uses the id from the object and follows current URL with `/id` they will not have an edit option unless they are a 'seller'. This is because only seller will have an access to  change status of the offer to either accepted or rejected and then again if purchase goes through they can go back and change status to sold which will also set related adverts 'active field' to false( This is mostly with intention of setting styling on front end to show the item has been sold without seller having to delete the item). Fuctionality to delete has not been implemented intentionaly so that other potential buyers don't make the same offers and can see what seller isn't already happy to accept.
 
 #### Profile
-
- As a USER I can VIEW EVERYONES PROFILE DETAILS so that I CAN LEARN MORE ABOUT SELLERS/BUYERS:(how long they're active, number of adverts posted, feedback/rating)`
 
 The profiles list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/profiles/
  
@@ -422,6 +425,8 @@ Additional fields added with the help of serializer to JSON data:
 Filtering has been implemented to:
 - Filter backend
   - By '-average_rating" this has been done for front end purposes, to display highest rated profiles in side bar desktop view only.
+
+  `As a USER I can VIEW EVERYONES PROFILE DETAILS so that I CAN LEARN MORE ABOUT SELLERS/BUYERS:(how long they're active, number of adverts posted, feedback/rating)`
 
   `As a PROFILE OWNER I can EDIT MY PROFILE DETAILS so that I CAN KEEP IT UP TO DATE`
 
@@ -652,9 +657,7 @@ For more details on how to clone the remote repo in order to create a local copy
 
 Forking allows you to make any changes without affecting original project. You can send the suggestions over by submitting pull request. Project owner can review the pull request before accepting the suggestions and merging them.
 
-
 For more details on how to fork the repo, in order to for example suggest any changes to the project you can click [here](https://docs.github.com/en/get-started/quickstart/fork-a-repo) 
-
 
 When you have fork to a repository you don't have access to files locally on your device, for this you will need to clone the forked repo.
 
