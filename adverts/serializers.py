@@ -12,8 +12,6 @@ class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
     Advert model Serializer, all fields serialized
     owner is read only, is_owner returns true/false -
     to check if the requesting user is/is not object owner.
-    Validate function checks if one of the fields(advert title or tags)
-    are not blank.
     Get page views function- increments page views for each object
     with the help of hitcount
     '''
@@ -21,7 +19,8 @@ class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     tags = TagListSerializerField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
-    profile_image = serializers.ReadOnlyField(source='owner.profile.profile_image.url')
+    profile_image = serializers.ReadOnlyField(
+        source='owner.profile.profile_image.url')
     page_views = serializers.SerializerMethodField()
     save_id = serializers.SerializerMethodField()
     active = serializers.ReadOnlyField()
@@ -29,7 +28,6 @@ class AdvertSerializer(TaggitSerializer, serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
     save_count = serializers.ReadOnlyField()
-
 
     def get_created_at(self, obj):
         return naturaltime(obj.created_at)

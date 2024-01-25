@@ -20,9 +20,8 @@ class AdvertsListTest(APITestCase):
         User.objects.create_user(username='TestUser', password='TestPassword')
         # open image file and create SimpleUploadedFile image object
         with open(self.test_image_path, 'rb') as f:
-            self.test_image =
-            SimpleUploadedFile(os.path.basename(self.test_image_path),
-                               f.read())
+            self.test_image = SimpleUploadedFile(os.path.basename(
+                                             self.test_image_path), f.read())
 
     def test_can_list_view_adverts(self):
         TestUser = User.objects.get(username='TestUser')
@@ -43,7 +42,9 @@ class AdvertsListTest(APITestCase):
             'tags': 'test',
             'advert_title': 'TestTitle',
             'price': '10.00',
-            'item_description': 'testing'
+            'item_description': 'testing',
+            'contact_dets': '012345',
+            'location': 'location'
             })
 
         count = Advert.objects.count()
@@ -52,13 +53,16 @@ class AdvertsListTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_create_advert_unauthorised_user(self):
-        response = self.client.post('/adverts/', {'image': self.test_image,
-                                                  'tags': 'test',
-                                                  'advert_title': 'TestTitle',
-                                                  'price': '10.00',
-                                                  'item_description': 'testing'
-                                                  })
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        response = self.client.post('/adverts/',
+                                    {'image': self.test_image,
+                                     'tags': 'test',
+                                     'advert_title': 'TestTitle',
+                                     'price': '10.00',
+                                     'item_description': 'testing',
+                                     'contact_dets': '012345',
+                                     'location': 'location'})
+        self.assertEqual(response.status_code,
+                         status.HTTP_403_FORBIDDEN)
 
 
 class AdvertDetailTest(APITestCase):
@@ -76,20 +80,23 @@ class AdvertDetailTest(APITestCase):
                                                   )
         # open image file and create SimpleUploadedFile image object
         with open(self.test_image_path, 'rb') as f:
-            self.test_image =
-            SimpleUploadedFile(os.path.basename(self.test_image_path),
-                               f.read())
+            self.test_image = SimpleUploadedFile(
+                os.path.basename(self.test_image_path), f.read())
 
         self.advert = Advert.objects.create(owner=FirstTestUser,
                                             image='default_post',
                                             advert_title='TestTitle1',
                                             price='10.00',
-                                            item_description='testing')
+                                            item_description='testing',
+                                            contact_dets='012345',
+                                            location='location')
         Advert.objects.create(owner=SecondTestUser,
                               image='default_post',
                               advert_title='TestTitle2',
                               price='10.00',
-                              item_description='testing')
+                              item_description='testing',
+                              contact_dets='012345',
+                              location='location')
 
     def test_can_retrieve_advert_using_valid_id(self):
         response = self.client.get('/adverts/1/')
@@ -108,7 +115,9 @@ class AdvertDetailTest(APITestCase):
             'tags': 'test',
             'advert_title': 'TestTitle',
             'price': '10.00',
-            'item_description': 'testing'
+            'item_description': 'testing',
+            'contact_dets': '012345',
+            'location': 'location'
             })
 
         advert = Advert.objects.filter(pk=1).first()

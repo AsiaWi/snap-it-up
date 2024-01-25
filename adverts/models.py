@@ -9,14 +9,14 @@ PAYMENT_OPTIONS = [
     ('Cash or Paypal', 'Cash or Paypal'),
     ('Cash only', 'Cash only'),
     ('PayPal only', 'PayPal only')
-    
+
 ]
 
 SHIPPMENT_OPTIONS = [
     ('Collection or delivery', 'Collection or delivery'),
     ('Collection Only', 'Collection Only'),
     ('Delivery Only', 'Delivery Only')
-    
+
 ]
 
 CATEGORIES = [
@@ -44,7 +44,8 @@ class Advert(models.Model, HitCountMixin):
     contact_dets = models.CharField(max_length=150, blank=False)
     advert_title = models.CharField(max_length=50, blank=True)
     tags = TaggableManager(blank=False)
-    image = models.ImageField(upload_to='images/', default='../upload.png_t8qvp6')
+    image = models.ImageField(upload_to='images/',
+                              default='../upload.png_t8qvp6')
     price = MoneyField(max_digits=14, decimal_places=2, default_currency='GBP',
                        blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
