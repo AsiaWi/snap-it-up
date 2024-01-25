@@ -13,7 +13,8 @@ class ProfileList(generics.ListAPIView):
     '''
     List all profiles, profile creation handled by django signals
     return number of adverts and number of ratings received by user
-    Average rating here, for ordering purposes only, averate_rating in detail view is
+    Average rating here, for ordering purposes only,
+    averate_rating in detail view is
     more precise to display on users profile.
     '''
     queryset = Profile.objects.annotate(
@@ -21,10 +22,8 @@ class ProfileList(generics.ListAPIView):
         rating_count=Count('owner__rated_user', distinct=True),
         total_ratings=Sum('owner__rated_user__rating'),
         average_rating=Case(
-            When(rating_count__gt=0, then=F('total_ratings') / F('rating_count')),
-        default=Value(0),
-    )
-)
+            When(rating_count__gt=0, then=F('total_ratings') /
+                 F('rating_count')), default=Value(0),))
 
     serializer_class = ProfileSerializer
     filter_backends = [filters.OrderingFilter]
@@ -41,12 +40,12 @@ class ProfileDetails(RetrieveUpdateAPIView):
 
     def get_object(self):
         try:
-           obj = Profile.objects.annotate(
+            obj = Profile.objects.annotate(
                 advert_count=Count('owner__advert', distinct=True),
                 rating_count=Count('owner__rated_user', distinct=True)
-           ).get(pk=self.kwargs['pk'])
-           self.check_object_permissions(self.request, obj)
-           obj.average_rating = obj.calculate_average_rating()
-           return obj
+            ).get(pk=self.kwargs['pk'])
+            self.check_object_permissions(self.request, obj)
+            obj.average_rating = obj.calculate_average_rating()
+            return obj
         except Profile.DoesNotExist:
             raise Http404("Profile does not exist")

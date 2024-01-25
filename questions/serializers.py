@@ -4,6 +4,7 @@ from django.contrib.humanize.templatetags.humanize import naturaltime
 from replies.serializers import ReplySerializer
 from replies.models import Reply
 
+
 class QuestionSerializer(serializers.ModelSerializer):
     '''
     Question model serializer, question content with elapsed time shown
@@ -21,7 +22,6 @@ class QuestionSerializer(serializers.ModelSerializer):
                     source="owner.profile.profile_image.url")
     replies_count = serializers.ReadOnlyField()
     replies = serializers.SerializerMethodField()
-
 
     def get_replies(self, obj):
         request = self.context.get('request')
