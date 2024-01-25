@@ -112,7 +112,6 @@ Instead of creating seperate 'developer stories' I created one project workflow 
 
 - EPIC 1- Project setup
   - `As a DEVELOPER I need to SET UP THE PROJECT so that i CAN BUILD THE PAGE`
-
   - `As a DEVELOPER I need to CONNECT THE PROJECT TO CLOUD TO STORE IMAGES so that USERS CAN UPLOAD IMAGES`
 - EPIC 2-Authentication/navigation:
   - `As a USER I can REGISTER AND SIGN IN so that I CAN ACCESS CONTENT WHICH REQUIRES TO BE AUTHORISED`
@@ -195,6 +194,7 @@ Additional fields added with the help of serializer to JSON data:
  - profile_image
 
  `As a USER I can SEE HOW MANY VIEWS EACH POST HAD so that I KNOW HOW POPULAR ARE DIFFERENT ITEMS WITHIN THE PAGE`
+ 
  - page_views
  - save_id
  - profile_location
@@ -208,6 +208,7 @@ Filtering fields have been implemented to:
 - Search
 
 `As a USER I can SEARCH ADVERTS BY ITEM LOCATION OR KEYWORD/TAG NAME so that I CAN FIND ITEMS THAT I'M INTERESTED IN`
+
 `As a USER I can VIEW ITEMS BY CATEGORY so that I CAN FIND ITEMS I NEED`
   - By advert_title, tags, item_description, categories, location.
 Wide range of search fields has been added that page user has more of a chance of finding something they like with keywords.
@@ -217,6 +218,7 @@ Wide range of search fields has been added that page user has more of a chance o
 - Order 
 
  `As a USER I can VIEW A LIST OF MOST SAVED ITEMS so that I CAN FIND BEST DEALS`
+
   - By save_count, price, created_by, updated_by
 To allow ordering of the advert list. 
  
@@ -290,6 +292,7 @@ Additional fields added with the help of serializer to JSON data:
  Replies field has been added as I think it makes the experience much easier to see full conversation in one place.
 
 `As a SELLER I can SEE A DATE WHEN QUESTION WAS ASKED so that I KNOW IF IT'S STILL RELEVANT OR URGENT`
+
 `naturaltime` has been implemented to updated_at and created_at for more human friendly timestap. This allows users to easily see when message has been posted.
 
 Filtering fields have been implemented to:
@@ -298,6 +301,7 @@ Filtering fields have been implemented to:
 Questions have been ordered in descending order so that the newest questions are at the top and others easily see if anything needs attention
  
  `As a LOGGED IN USER I can ASK A QUESTION ABOUT AN ADVERT so that I CAN GET MORE INFORMATION BEFORE PURCHASE`
+
  `As a QUESTION OWNER I can EDIT OR DELETE A QUESTION I ASKED so that I CAN CONTROL MY OUTPUT`
   
         -Endpoint `/questions/int:pk/`
@@ -330,6 +334,7 @@ Additional fields added with the help of serializer to JSON data:
  - profile_image
 
 `As a USER I can SEE WHEN SOMEONE REPLIED TO MY QUESTION so that I KNOW IF IT'S MOST RELEVANT`
+
 `naturaltime` has been implemented to updated_at and created_at for more human friendly timestap. This allows users to easily see when message has been posted.
 
 Filtering has been implemented to:
@@ -338,8 +343,9 @@ Filtering has been implemented to:
 Replies have been ordered in descending order so that the newest questions are at the top and others easily see if anything needs attention
  
  `As a LOGGED IN USER I can REPLY TO QUESTIONS so that I CAN COMMUNICATE BACK WITH POTENTIAL BUYERS`
- `As a REPLY OWNER I can EDIT OR DELETE IT so that I CAN CONTROL MY OUTPUT`
- 
+
+ `As a LOGGED IN USER I can EDIT/DELETE MY REPLY so that MANAGE MY INPUT`
+
        -Endpoint `/replies/int:pk/`
         -Methods:
         `GET`  used to list view replies
@@ -566,8 +572,9 @@ Unit tests have been performed to check Profile and Advert models.
 
 * Links to test files can be found here:
 
-![PROFILE](https://github.com/AsiaWi/snap-it-up-backend/blob/main/profiles/tests.py)
-![ADVERT](https://github.com/AsiaWi/snap-it-up-backend/blob/main/adverts/tests.py)
+[PROFILE](https://github.com/AsiaWi/snap-it-up-backend/blob/main/profiles/tests.py)
+
+[ADVERT](https://github.com/AsiaWi/snap-it-up-backend/blob/main/adverts/tests.py)
 
 * Tests outcome when run ``python manage.py test``
 
@@ -592,4 +599,70 @@ Unit tests have been performed to check Profile and Advert models.
 
    ``git push`` - final command used to push commited code to remote repo on Github
 
+### Deploying in Heroku 
 
+* The project has been deployed on Heroku as follows:
+     * Use: ``pip freeze > requirements.txt`` to add external libraries to deployed app.
+     * Create Heroku account ( step by step guide [here](https://coding-boot-camp.github.io/full-stack/heroku/deploy-with-heroku-and-mysql))
+     * In the top right, click 'New'
+     * Click 'Create new app'
+     * Give your app a name and select your region from drop down 
+     * Click 'Create new app' 
+     * Go to 'settings' tab, it's important you do it before deployment
+     * Scroll down to 'config vars' section and key:
+        - ALLOWED_HOST : add url to your heroku app link
+        - CLIENT_ORIGIN : frontend heroku url which will be making requests to this API 
+        - CLIENT_ORIGIN_DEV: local front-end url
+        - CLOUDINARY_URL: 'API key to your cloudinary account'
+        - DATABASE_URL : 'URL from your database account'
+        - SECRET_KEY: 'Generate your own secret key'
+        - DISABLE_COLLECTSTATIC: set to '1'
+     * Scroll down to 'Buildpacks' section
+     * Click 'Add buildpack'
+     * Add Python as first dependency and select 'Save changes'
+     * Add node.js as a second dependency and save again
+     (This is settings section done)
+     * Select 'Deploy' tab at the top
+     * Select ' Github' from 'Deployment method'
+     * type the name of how you called project in Github and click 'search'
+     * Scroll down and select manual deployment method
+     * Auto method has also been selected to allow the project to update every time i push the code from Gitpod
+     * You can now click to view the app ready and running
+
+### CLONING THE REPOSITORY
+
+1. On Github navigate to repository
+2. Click "Code" a green button shown right above the file list
+3. Copy the URL of the repo using HTTPS, SSH OR Github CLI
+4. Open Git Bash
+5. Change the current working directory to the location where you want the cloned directory
+6. Type git clone, and then paste the URL you copied earlier
+7. Press enter to create local Clone
+
+For more details on how to clone the remote repo in order to create a local copy for own use, please click [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
+
+
+### FORKING
+
+1. On Github navigate to repository
+2. click "Fork" located towards the top right corner
+3. Select "owner" for the forked repo, from the dropdown menu under "owner" Under "Owner"
+4. It will create forked repo under the same name as orinial by default but you can type a name in "Repository name" or add a description in "Description" box.
+5. Click "Create fork" !
+
+Forking allows you to make any changes without affecting original project. You can send the suggestions over by submitting pull request. Project owner can review the pull request before accepting the suggestions and merging them.
+
+
+For more details on how to fork the repo, in order to for example suggest any changes to the project you can click [here](https://docs.github.com/en/get-started/quickstart/fork-a-repo) 
+
+
+When you have fork to a repository you don't have access to files locally on your device, for this you will need to clone the forked repo.
+
+## Credits
+
+- Code Insitute's DRF walkthrough
+- All the links below to help me with creating average rating for list and detail views:
+    - [When()](https://docs.djangoproject.com/en/4.2/ref/models/conditional-expressions/)
+    - [F()](https://docs.djangoproject.com/en/5.0/ref/models/expressions/)
+    - [Stack overflow](https://stackoverflow.com/questions/68953258/%20how-to-calculate-average-of-some-field-in-django-models-and-send-it-to-rest-api) 
+    - [django fun](https://django.fun/qa/16172/)
