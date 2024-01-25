@@ -456,3 +456,23 @@ Installed as dependencies with another packages:
 * sqlparse==0.4.4
 * urllib3==1.26.16
 * pytz==2023.3.post1
+
+## Testing
+
+### Validator Testing
+
+#### Python
+
+No errors shows when passing each file through [CI Python Linter](https://pep8ci.herokuapp.com/)
+
+Each python file in this repo has been run through and each file received the same success message:
+
+![python_validator_check](https://res.cloudinary.com/dmod5eglu/image/upload/v1706145438/python_success_jlmp1o.png)
+
+Couple warnings 'Too long lines of code' when running:
+- settings.py (as per image below)
+- Profile > models.py (line16)
+
+I tried multiple ways to split the lines but unable to deploy then. Warnings shown:
+
+![python_validator_check_warnings](https://res.cloudinary.com/dmod5eglu/image/upload/v1706145440/python_warnings_opsfkn.png)
