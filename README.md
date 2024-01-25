@@ -179,6 +179,11 @@ All features have been implemented with user stories in mind
 
 The advert list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/adverts/
 
+    -Endpoint ``/adverts/``
+    -Methods used:
+     `GET`  used to list view adverts
+     `POST` used to create an advert
+
 ![ADVERTS_VIEW](https://res.cloudinary.com/dmod5eglu/image/upload/v1706069800/API_ADVERTS_VIEW_daw2e8.png)
 
 To see fields included in the model see [Database Design](#database-design) 
@@ -223,6 +228,12 @@ To allow ordering of the advert list.
 
 `As a LOGGED IN USER I can DELETE MY OWNS POSTS so that I CAN KEEP MY ACCOUNT UP TO DATE`
 
+    -Endpoint `/adverts/int:pk/`
+    -Methods:
+     `GET`  used to get an advert
+     `PUT`  used to edit an advert
+     `DELETE` used to delete an advert
+
 Once user is logged in, form to submit an advert becomes available. Once submitted, user will see their ad as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access advert detail view where if authorised (ie. adverts 'is_owner' field =true) they will be able to edit/delete the advert.
 
 #### Save
@@ -230,6 +241,11 @@ Once user is logged in, form to submit an advert becomes available. Once submitt
  `As a LOGGED IN USER I can SAVE AN ADVERT BY CLICKING ON SAVE ICON so that I CAN VIEW IT AGAINST OTHER ITEMS I SAVED/ KEEP AN EYE ON THE ITEM`
 
 The saved items list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/saved/
+
+      -Endpoint `/saved/int:pk/`
+      -Methods:
+      `GET`  used to list view saved adverts
+      `POST` used to save an advert
 
 ![SAVED_ITEMS_VIEW](https://res.cloudinary.com/dmod5eglu/image/upload/v1706126806/API_SAVED_ITEMS_VIEW_xnqews.png)
 
@@ -243,6 +259,10 @@ The unique together Meta class ensures that user can save specific item only onc
  
 ``As a LOGGED IN USER I can SAVE ITEMS so that I CAN GET BACK TO ADVERTS I'M INTERESTED IN EASILY`
 
+      -Endpoint `/saved/int:pk/`
+      -Methods:
+       `DELETE` used to remove save from advert
+
 Once user is logged in, form to save advert becomes available. Once submitted, user will see their ad as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access saved object detail view where if authorised (ie. adverts 'owner' field =true) they will be able to edit/delete the save.
 
 #### Questions
@@ -250,6 +270,11 @@ Once user is logged in, form to save advert becomes available. Once submitted, u
 `As a SELLER I want OTHER USERS TO SEE THE PREVIOUSLY ASKED QUESTIONS AND ANSWERS so that I DON'T HAVE TO ANSWER TO EVERYONE INDIVIDUALLY`
 
 The questions list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/questions/
+
+
+      -Endpoint `/questions/`
+       `GET`  used to list view questions
+       `POST` used to create a question
 
 ![API_QUESTIONS_VIEW](https://res.cloudinary.com/dmod5eglu/image/upload/v1706128036/api_questions_view_dcinee.png)
 
@@ -274,6 +299,12 @@ Questions have been ordered in descending order so that the newest questions are
  
  `As a LOGGED IN USER I can ASK A QUESTION ABOUT AN ADVERT so that I CAN GET MORE INFORMATION BEFORE PURCHASE`
  `As a QUESTION OWNER I can EDIT OR DELETE A QUESTION I ASKED so that I CAN CONTROL MY OUTPUT`
+  
+        -Endpoint `/questions/int:pk/`
+        -Methods:
+          `GET`  used to list view questions
+          `PUT`  used to edit question
+          `DELETE` used to delete a question
 
 Once user is logged in, form to submit a question becomes available. Once submitted, user will see their question as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access advert detail view where if authorised (ie. questions 'is_owner' field =true) they will be able to edit/delete the advert. The advert field has been set to read only in detail view to avoid repetition when editing.
 
@@ -283,6 +314,11 @@ Once user is logged in, form to submit a question becomes available. Once submit
 
 The replies list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/replies/
 
+       -Endpoint `/replies/`
+       -Methods:
+         `GET`  used to list view replies
+        `POST`  used to create a reply
+    
 ![API_REPLIES_VIEW](https://res.cloudinary.com/dmod5eglu/image/upload/v1706129129/API_REPLIES_VIEW_t25qqe.png)
 
 To see fields included in the model see [Database Design](#database-design) 
@@ -302,6 +338,13 @@ Filtering has been implemented to:
 Replies have been ordered in descending order so that the newest questions are at the top and others easily see if anything needs attention
  
  `As a LOGGED IN USER I can REPLY TO QUESTIONS so that I CAN COMMUNICATE BACK WITH POTENTIAL BUYERS`
+ `As a REPLY OWNER I can EDIT OR DELETE IT so that I CAN CONTROL MY OUTPUT`
+ 
+       -Endpoint `/replies/int:pk/`
+        -Methods:
+        `GET`  used to list view replies
+        `PUT`  used to edit a reply
+        `DELETE` used to delete a reply
 
 Once user is logged in, form to submit the reply becomes available. Once submitted, user will see their reply as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access advert detail view where if authorised (ie. questions 'is_owner' field =true) they will be able to edit/delete the advert. The question field has been set to read only in detail view to avoid repetition when editing.
 
@@ -309,7 +352,14 @@ Once user is logged in, form to submit the reply becomes available. Once submitt
 
  `As a USER I can SEE ALL PREVIOUSLY MADE OFFERS so that I DON'T WASTE MY TIME MAKING THE SAME OFFERS SELLER ALREADY WASN'T HAPPY WITH`
 
+ `As a LOGGED IN USER I can MAKE AN OFFER TO A SELLER so that I CAN PURCHASE THE ITEM`
+
 The offers list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/offers/
+
+       -Endpoint `/offers/`
+       -Methods:
+        `GET`  used to list view offers
+        `POST`  used to create an offer
 
 ![API_OFFERS_VIEW](https://res.cloudinary.com/dmod5eglu/image/upload/v1706129810/API_OFFERS_VIEW_hl97ex.png)
 
@@ -322,8 +372,6 @@ Additional fields added with the help of serializer to JSON data:
  - created_by_profile_user
  - profile_image
 
-`As a LOGGED IN USER I can MAKE AN OFFER TO A SELLER so that I CAN PURCHASE THE ITEM`
-
 `naturaltime` has been implemented to updated_at and created_at for more human friendly timestap. This allows users to easily see when message has been posted.
 
 Filtering has been implemented to:
@@ -335,6 +383,11 @@ Offers have been ordered in descending order so that the newest offers are at th
 
 ``As a SELLER I can MARK AN OFFER AS SOLD so that IT'S CLEAR WHICH OFFER WENT THROUGH``
 
+          -Endpoint `/offers/int:pk/`
+          -Methods:
+           `GET`  used to view offers
+           `PUT` used to edit an offer (status)
+          
 Once user is logged in, form to submit the offer becomes available. Once submitted, user will see their offer as an additional object to the list view, status field is set to pending as default. If user uses the id from the object and follows current URL with `/id` they will not have an edit option unless they are a 'seller'. This is because only seller will have an access to  change status of the offer to either accepted or rejected and then again if purchase goes through they can go back and change status to sold which will also set related adverts 'active' field to false( This is mostly with intention of setting styling on front end to show the item has been sold without seller having to delete the item). Fuctionality to delete has not been implemented intentionaly so that other potential buyers don't make the same offers and can see what seller isn't already happy with.
 
 #### Profile
@@ -342,6 +395,10 @@ Once user is logged in, form to submit the offer becomes available. Once submitt
  As a USER I can VIEW EVERYONES PROFILE DETAILS so that I CAN LEARN MORE ABOUT SELLERS/BUYERS:(how long they're active, number of adverts posted, feedback/rating)`
 
 The profiles list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/profiles/
+ 
+          -Endpoint `/profiles/`
+          -Methods:
+          `GET`  used to list view profiles
 
 ![API_PROFILES_VIEW](https://res.cloudinary.com/dmod5eglu/image/upload/v1706135071/API_PROFILE_VIEW_xz5lrt.png)
 
@@ -364,7 +421,12 @@ Filtering has been implemented to:
 
   `As a PROFILE OWNER I can UPDATE PASSWORD AND USERNAME so that I CAN KEEP MY PROFILE SAFE`
 
-No option to create profile from list view as this is automatically done upon registration. If user uses the id from the profile object and follows current URL with `/id` they can access profile detail view where if authorised (ie. profiles 'is_owner' field =true) they will be able to edit the profile.
+            -Endpoint `/profiles/int:pk/`
+            -Methods:
+            `GET`  used to view profile
+            `PUT`  used to edit profile
+
+No option to create profile from list view as this is automatically done upon registration with a help of signal created. If user uses the id from the profile object and follows current URL with `/id` they can access profile detail view where if authorised (ie. profiles 'is_owner' field =true) they will be able to edit the profile.
 
 #### Rating
 
@@ -372,6 +434,11 @@ No option to create profile from list view as this is automatically done upon re
    `As a LOGGED IN USER I can RATE A PROFILE ONCE I PURCHASED SOMETHING FROM THE SELLER so that OTHERS KNOW HOW RELIABLE THE SELLER IS`
 
 The rating list view can be accessed here: https://snap-it-up-25ef84f951df.herokuapp.com/ratings/
+
+        -Endpoint `/ratings/`
+        -Methods:
+        `GET`  used to list view ratings
+        `POST`  used to create a rating
 
 ![API_RATINGS_VIEW](https://res.cloudinary.com/dmod5eglu/image/upload/v1706137759/API_RATING_VIEW_vgsfz8.png)
 
@@ -392,6 +459,12 @@ Filtering fields have been implemented to:
 Ratings have been ordered in descending order so that the newest questions are at the top so users can hear about most recent experiences with the profile user.
  
  `As a USER I can EDIT OR DELETE RATING I HAVE LEFT so that I CONTROL MY INPUT`
+         
+         -Endpoint `/ratings/int:pk/`
+         -Methods:
+          `GET`  used to view rating
+          `PUT`  used to edit rating
+          `DELETE` used to delete a rating
 
 Once user is logged in, form to submit a rating becomes available. Rating (star number submittion must be filled in and the feedback field is optional) Once submitted, user will see their rating as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access rating detail view where if authorised (ie. ratings 'is_owner' field =true) they will be able to edit/delete the rating. The rated_user field has been set to read only in detail view to avoid repetition when editing.
 
@@ -422,6 +495,7 @@ Once user is logged in, form to submit a rating becomes available. Rating (star 
 * Github - used to host source code and deploy on Github Pages
 * Git- used to commit and push code 
 * Python - used as the main language to code the logic of the page
+* Django==4.2.8 - framework used
 * djangorestframework==3.14.0 - framework used
 * Heroku - to deploy the app 
 * [dbeaver](https://dbeaver.com/) - used to generate the ER Diagram
@@ -476,3 +550,46 @@ Couple warnings 'Too long lines of code' when running:
 I tried multiple ways to split the lines but unable to deploy then. Warnings shown:
 
 ![python_validator_check_warnings](https://res.cloudinary.com/dmod5eglu/image/upload/v1706145440/python_warnings_opsfkn.png)
+
+### Manual Testing
+
+#### Functional Testing
+ All functions have been manually tested to make sure each function works as intended and only for users as intended. Testing of the entire full stack application can be found within [FRONT-END REPO](https://github.com/AsiaWi/snap-it-up-frontend/)
+
+##### Negative Testing
+ All functions have been tested to make sure no functions are availabale to unauthorised users etc. This was done throughout the entire development process. Full application testing can be found on [FRONT-END REPO](https://github.com/AsiaWi/snap-it-up-frontend/)
+### Automatic Testing
+
+#### Unit Testing
+
+Unit tests have been performed to check Profile and Advert models.
+
+* Links to test files can be found here:
+
+![PROFILE](https://github.com/AsiaWi/snap-it-up-backend/blob/main/profiles/tests.py)
+![ADVERT](https://github.com/AsiaWi/snap-it-up-backend/blob/main/adverts/tests.py)
+
+* Tests outcome when run ``python manage.py test``
+
+![Python_UNIT_TESTS](https://res.cloudinary.com/dmod5eglu/image/upload/v1706146715/python_unittests_wn3ls7.png)
+
+
+## Bugs
+
+![python_validator_check_warnings](https://res.cloudinary.com/dmod5eglu/image/upload/v1706145440/python_warnings_opsfkn.png)
+
+## Deployment
+
+### Version Control
+
+* Git 
+    Code has been pushed with git commands to remote repository on Github with commands:
+
+   `` git add .`` - to add files ready to commit
+
+   ``git commit -m "message"`` - to commit the code to local 
+    repository ready to be pushed
+
+   ``git push`` - final command used to push commited code to remote repo on Github
+
+
