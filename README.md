@@ -525,6 +525,7 @@ Once user is logged in, form to submit a rating becomes available. Rating (star 
 * psycopg2==2.9.9 - additional dependency needed to support PostgreSQL when deployed to heroku 
 * Pillow==10.1.0  - image processing capibilities
 * asgiref==3.7.2  - ASGI is a standard for Python asynchronous web apps and servers to communicate with each other, and positioned as an asynchronous successor to WSGI. 
+* gunicorn==21.2.0
 * django-cors-headers==4.3.1  - A Django App that adds Cross-Origin Resource Sharing (CORS) headers to responses. This allows in-browser requests to your Django application from other origins.
 * django-filter==23.5 - installed to use djangofilterbackend
 * django-hitcount==1.3.5 - installed to implement page views for adverts
@@ -534,7 +535,6 @@ Once user is logged in, form to submit a rating becomes available. Rating (star 
 * djangorestframework-simplejwt==5.3.1  - JSON Web Token authentication plugin for DRF.
 
 Installed as dependencies with another packages:
-* gunicorn==21.2.0
 * oauthlib==3.2.2
 * PyJWT==2.8.0
 * python3-openid==3.2.0
@@ -569,6 +569,7 @@ I tried multiple ways to split the lines but unable to deploy then. Warnings sho
 
 ##### Negative Testing
  All functions have been tested to make sure no functions are availabale to unauthorised users etc. This was done throughout the entire development process. Full application testing can be found on [FRONT-END REPO](https://github.com/AsiaWi/snap-it-up-frontend/)
+
 ### Automatic Testing
 
 #### Unit Testing
