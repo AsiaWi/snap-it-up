@@ -20,7 +20,7 @@ For details on front-end please visit this link: [FRONT-END REPO](https://github
     - [Features Left To Implement](#features-left-to-implement)
   - [The Skeleton Plane](#the-skeleton-plane)
     - [Database Design](#database-design)
-- [Technolgies](#technolgies)
+- [Technologies](#technologies)
   - [Tools and Technologies](#tools-and-technologies)
   - [Imports](#imports)
     - [Installed Packages](#installed-packages)
@@ -479,6 +479,10 @@ Ratings have been ordered in descending order so that the newest questions are a
 
 Once user is logged in, form to submit a rating becomes available. Rating (star number submittion must be filled in and the feedback field is optional) Once submitted, user will see their rating as an additional object to the list view. If user uses the id from the object and follows current URL with `/id` they can access rating detail view where if authorised (ie. ratings 'is_owner' field =true) they will be able to edit/delete the rating. The rated_user field has been set to read only in detail view to avoid repetition when editing.
 
+### Features left to implement
+
+In the future I would like to add additional model for potential buyers and seller to communicate privately so that they could exchange private details there and arrange further details of transaction. I initially added private message to Offers model however as I wanted to make everything but the message available to all users based on `isAuthorisedOrReadOnly` permissions I decided to remove the message. 
+
 ## The Skeleton Plane
 
 ### Database design
@@ -587,6 +591,7 @@ Unit tests have been performed to check Profile and Advert models.
 
 ## Bugs
 
+As mentioned within [Validator section](#validator-testing)
 ![python_validator_check_warnings](https://res.cloudinary.com/dmod5eglu/image/upload/v1706459903/PYTHON_VALIDATOR_vqsjqy.png)
 
 ## Deployment
