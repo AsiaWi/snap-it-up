@@ -12,8 +12,9 @@ class Profile(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
-    profile_image = models.ImageField(upload_to='images/',
-                                      default='../icons8-person-female-100_q2xckn')
+    profile_image = models.ImageField(
+        upload_to='images/',
+        default='../icons8-person-female-100_q2xckn')
 
     def calculate_average_rating(self):
         ratings = Rating.objects.filter(rated_user=self.owner)

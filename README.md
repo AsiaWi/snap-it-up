@@ -513,7 +513,6 @@ Once user is logged in, form to submit a rating becomes available. Rating (star 
 
 ### Imports
 
-
 #### Installed packages
 
 * cloudinary==1.37.0 - media managment cloudinary
@@ -556,11 +555,10 @@ Each python file in this repo has been run through and each file received the sa
 
 Couple warnings 'Too long lines of code' when running:
 - settings.py (as per image below)
-- Profile > models.py (line16)
 
-I tried multiple ways to split the lines but unable to deploy then. Warnings shown:
+I tried multiple ways to split the lines but unable to deploy then. These are lines of code that have been auto generated. Warnings shown:
 
-![python_validator_check_warnings](https://res.cloudinary.com/dmod5eglu/image/upload/v1706145440/python_warnings_opsfkn.png)
+![python_validator_check_warnings](https://res.cloudinary.com/dmod5eglu/image/upload/v1706459903/PYTHON_VALIDATOR_vqsjqy.png)
 
 ### Manual Testing
 
@@ -589,7 +587,7 @@ Unit tests have been performed to check Profile and Advert models.
 
 ## Bugs
 
-![python_validator_check_warnings](https://res.cloudinary.com/dmod5eglu/image/upload/v1706145440/python_warnings_opsfkn.png)
+![python_validator_check_warnings](https://res.cloudinary.com/dmod5eglu/image/upload/v1706459903/PYTHON_VALIDATOR_vqsjqy.png)
 
 ## Deployment
 
